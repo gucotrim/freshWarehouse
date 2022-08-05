@@ -1,11 +1,13 @@
 package com.meli.freshWarehouse.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Builder
@@ -23,5 +25,21 @@ public class Section {
 
     @Column(name = "available_space")
     private String availableSpace;
+
+    @ManyToOne
+    @JoinColumn(name = "id_warehouse", nullable = false)
+    private Warehouse warehouse;
+
+    @OneToMany(mappedBy = "section")
+    @JsonIgnoreProperties("section")
+    private Set<Order> listOrder;
+
+    @OneToMany(mappedBy = "section")
+    @JsonIgnoreProperties("section")
+    private Set<Product> listProduct;
+
+    @OneToMany(mappedBy = "section")
+    @JsonIgnoreProperties("section")
+    private Set<Batch> listBatch;
 
 }

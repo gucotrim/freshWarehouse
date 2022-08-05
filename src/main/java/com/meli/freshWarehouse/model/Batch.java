@@ -40,5 +40,17 @@ public class Batch {
     @Column(name = "due_date")
     private Date dueDate;
 
+    @ManyToOne
+    @JoinColumn(name = "id_order", nullable = false)
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "id_section", nullable = false)
+    private Section section;
+
+    @ManyToOne
+    @JoinColumn(name = "id_product", nullable = false)
+    private Product product;
+
 
 }
