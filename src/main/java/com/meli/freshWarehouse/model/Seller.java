@@ -19,6 +19,9 @@ public class Seller {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column
+    private String name;
+
     @OneToMany(mappedBy = "seller")
     @JsonIgnoreProperties("seller")
     private Set<Product> listProduct;
