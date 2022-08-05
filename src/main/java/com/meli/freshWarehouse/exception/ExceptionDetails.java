@@ -9,8 +9,9 @@ import java.time.LocalDateTime;
 @Builder
 public class ExceptionDetails {
     private String title;
-    private int status;
     private String message;
-    private LocalDateTime localDateTime;
+    private String fields;
+    private String fieldsMessages;
+    private LocalDateTime timestamp;
 
 }
