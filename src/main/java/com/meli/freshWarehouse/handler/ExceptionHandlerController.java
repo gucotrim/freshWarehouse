@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class ExceptionHandler {
+public class ExceptionHandlerController {
 
 
     @ExceptionHandler({NotFoundException.class})
@@ -99,24 +99,6 @@ public class ExceptionHandler {
                 .localDateTime(LocalDateTime.now())
                 .build(),
                 HttpStatus.UNPROCESSABLE_ENTITY
-        );
-    }
-    
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<FieldError> errors = ex.getBindingResult().getFieldErrors();
-
-        return new ResponseEntity<>(
-                ExceptionDetails.builder()
-                        .timestamp(LocalDateTime.now())
-                        .title("Campos inválidos")
-                        .message(ex.getClass().getName())
-                        .fields(errors.stream().map(
-                                FieldError::getField).collect(Collectors.joining("; ")))
-                        .fieldsMessages(errors.stream().map(
-                                FieldError::getDefaultMessage).collect(Collectors.joining("; ")))
-                        .build()
-                , status
         );
     }
 
