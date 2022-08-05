@@ -6,9 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.*;
+
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Entity Section Class
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,11 +25,14 @@ public class Section {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 100, nullable = false, unique = true)
+    @NotEmpty(message = "The field name cannot be empty")
     private String name;
 
-    @Column(name = "available_space")
-    private String availableSpace;
+    @NotEmpty(message = "The field cannot be empty")
+    @NotNull(message = "The file cannot be empty")
+    @Column(name = "available_space", nullable = false)
+    private int availableSpace;
 
     @ManyToOne
     @JoinColumn(name = "id_warehouse", nullable = false)
