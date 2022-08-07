@@ -18,7 +18,8 @@ import java.util.Set;
 public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
 
     @Column(name = "address")
     private String address;
@@ -33,7 +34,7 @@ public class Warehouse {
     private String country;
 
     @Column(name = "number")
-    private int number;
+    private Integer number;
 
     @OneToMany(mappedBy = "warehouse")
     @JsonIgnoreProperties("warehouse")
@@ -42,4 +43,15 @@ public class Warehouse {
     @OneToMany(mappedBy = "warehouse")
     @JsonIgnoreProperties("warehouse")
     private Set<Section> listSection;
+
+
+    public Warehouse(String address, String city, String state, String country, Integer number) {
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.number = number;
+    }
+
+
 }
