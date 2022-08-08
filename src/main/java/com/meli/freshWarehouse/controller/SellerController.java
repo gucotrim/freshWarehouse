@@ -22,12 +22,12 @@ public class SellerController {
      * Gets the id of a seller
      *
      * @param id - Seller id.
-     * @return A seller, return an exception if property isn't found.
-     * @throws NotFoundException When a property doesn't exist.
+     * @return A seller, return an exception if seller isn't found.
+     * @throws NotFoundException When a seller doesn't exist.
      * @see <a href="http://localhost:8080/api/v1/fresh-products/seller/{id}">Get seller</a>
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Seller> findById(@PathVariable long id) {
+    public ResponseEntity<Seller> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getSellerById(id));
     }
 
@@ -63,7 +63,7 @@ public class SellerController {
      * @see <a href="http://localhost:8080/api/v1/fresh-products/seller"> Delete seller</a>
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSeller(@PathVariable long id) {
+    public ResponseEntity<Void> deleteSeller(@PathVariable Long id) {
         service.deleteSeller(id);
         return ResponseEntity.noContent().build();
     }

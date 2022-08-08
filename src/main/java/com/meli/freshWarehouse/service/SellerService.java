@@ -14,7 +14,7 @@ public class SellerService implements ISellerService {
     ISellerRepo repository;
 
     @Override
-    public Seller getSellerById(long id) {
+    public Seller getSellerById(Long id) {
         return repository.findById(id).orElseThrow(() -> new NotFoundException("Seller not found!"));
     }
 
@@ -24,7 +24,7 @@ public class SellerService implements ISellerService {
     }
 
     @Override
-    public void deleteSeller(long id) {
+    public void deleteSeller(Long id) {
         getSellerById(id);
 
         repository.deleteById(id);
@@ -39,7 +39,7 @@ public class SellerService implements ISellerService {
     }
 
     @Override
-    public boolean existsById(long id) {
+    public boolean existsById(Long id) {
         return repository.existsById(id);
     }
 }
