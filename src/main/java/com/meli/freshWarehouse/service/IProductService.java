@@ -10,7 +10,7 @@ public interface IProductService {
     Product createProduct(@Valid ProductDTO product);
     List<Product> getAll();
     Product getProductById(Long id);
-    Product update(Product product);
+    Product update(Long id, ProductDTO productDto);
     void delete(Long id);
     boolean isFromSection(Long sectionId, Product product);
     boolean productExists(Long id);

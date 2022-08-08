@@ -17,7 +17,6 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Getter @Setter
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,11 +44,6 @@ public class Product {
     @JsonIgnore
     private Set<Batch> listBatch;
 
-    public Product(String name, Double price, Seller seller, Section section) {
-        this.name = name;
-        this.price = price;
-        this.seller = seller;
-        this.section = section;
+    public Product(String name, Double price, Long sellerId, Long sectionId) {
     }
-
 }

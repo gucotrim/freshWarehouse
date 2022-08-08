@@ -49,7 +49,7 @@ public class ProductController {
      * @see <a href="http://localhost:8080/api/vi/product/{id}">Get the product by id</a>
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable long id) {
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.getProductById(id));
     }
 
@@ -61,9 +61,9 @@ public class ProductController {
      * @throws NotFoundException When a product with the informed ID isn't found.
      * @see <a href="http://localhost:8080/api/vi/product">Update a product</a>
      */
-    @PutMapping
-    public ResponseEntity<Product> update(@RequestBody Product Product) {
-        return new ResponseEntity<>(productService.update(Product), HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody @Valid ProductDTO productDto) {
+        return ResponseEntity.ok(productService.update(id, productDto));
     }
 
 
@@ -75,7 +75,7 @@ public class ProductController {
      * @see <a href="http://localhost:8080/api/vi/product">Delete a warehouse</a>
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         productService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
