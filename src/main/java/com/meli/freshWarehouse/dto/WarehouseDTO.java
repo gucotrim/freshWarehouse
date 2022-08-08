@@ -14,15 +14,20 @@ import javax.validation.constraints.Positive;
 
 public class WarehouseDTO {
     @NotBlank
+    @Max(60)
     private String address;
     @NotBlank
+    @Max(45)
     private String city;
     @NotBlank
+    @Max(45)
     private String state;
     @NotBlank
+    @Max(45)
     private String country;
     @NotNull
     @Positive
+    @Max(45)
     private Integer number;
 
     @Deprecated

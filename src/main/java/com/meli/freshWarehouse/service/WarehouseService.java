@@ -12,8 +12,10 @@ import java.util.List;
 @Service
 public class WarehouseService implements IWarehouseService {
 
-    @Autowired
-    WarehouseRepo warehouseRepo;
+    private final WarehouseRepo warehouseRepo;
+    public WarehouseService(WarehouseRepo warehouseRepo) {
+        this.warehouseRepo = warehouseRepo;
+    }
 
     @Override
     public Warehouse createWarehouse(WarehouseDTO createWarehouse) {
