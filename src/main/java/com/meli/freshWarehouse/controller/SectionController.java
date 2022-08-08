@@ -62,6 +62,7 @@ public class SectionController {
     /**
      * Update a section by id
      *
+     * @param id
      * @param section
      * @return Section updated.
      * @see <a href="http://localhost:8080/api/v1/fresh-products/section">Update section</a>

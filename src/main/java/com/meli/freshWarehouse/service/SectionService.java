@@ -51,7 +51,7 @@ public class SectionService implements ISectionService {
     }
 
     @Override
-    public Section getById(long id) {
+    public Section getById(Long id) {
 
         return sectionRepo.findById(id)
                 .orElseThrow(() -> new NotFoundException(
@@ -74,7 +74,7 @@ public class SectionService implements ISectionService {
     }
 
     @Override
-    public void deleteSectionById(long id) {
+    public void deleteSectionById(Long id) {
 
         Optional<Section> sectionFound = sectionRepo.findById(id);
         if (sectionFound.isEmpty()) {
@@ -85,7 +85,7 @@ public class SectionService implements ISectionService {
     }
 
     @Override
-    public boolean existById(long id){
+    public boolean existById(Long id){
         return sectionRepo.existsById(id);
     }
 

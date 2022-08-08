@@ -14,11 +14,11 @@ public interface ISectionService {
 
     List<Section> getAllSection();
 
-    Section getById(long id);
+    Section getById(Long id);
 
     Section updateSection(Long id, SectionDto section);
 
-    void deleteSectionById(long id);
+    void deleteSectionById(Long id);
 
-    boolean existById(long id);
+    boolean existById(Long id);
 }
