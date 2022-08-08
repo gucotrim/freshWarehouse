@@ -1,14 +1,19 @@
 package com.meli.freshWarehouse.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.*;
+
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Entity Section Class
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,28 +23,30 @@ public class Section {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 100, nullable = false)
+    @NotEmpty(message = "The field name cannot be empty")
     private String name;
 
-    @Column(name = "available_space")
-    private int availableSpace;
+    @NotNull(message = "The field cannot be empty")
+    @Column(name = "available_space", nullable = false)
+    private Integer availableSpace;
 
     @ManyToOne
     @JoinColumn(name = "id_warehouse", nullable = false)
     private Warehouse warehouse;
 
     @OneToMany(mappedBy = "section")
-    @JsonIgnoreProperties("section")
+    @JsonIgnore
     private Set<Order> listOrder;
 
     @OneToMany(mappedBy = "section")
-    @JsonIgnoreProperties("section")
+    @JsonIgnore
     private Set<Product> listProduct;
 
     @OneToMany(mappedBy = "section")
-    @JsonIgnoreProperties("section")
+    @JsonIgnore
     private Set<Batch> listBatch;
 
 }
