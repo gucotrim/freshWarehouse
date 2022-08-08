@@ -3,6 +3,7 @@ package com.meli.freshWarehouse.service;
 import com.meli.freshWarehouse.dto.RepresentativeDto;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.model.Representative;
+import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.repository.RepresentativeRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +20,18 @@ public class RepresentativeService implements RepresentativeServiceInterface{
 
     @Override
     public Representative save(RepresentativeDto representativeDto) {
-        // findById representative.warehouseId
+        // findById representative.warehouseId Address 1', 'City 1', 'Brasil', 1, 'DF'
 
         return representativeRepository.save(Representative.builder()
                 .name(representativeDto.getName())
-                //warehouse()
+                .warehouse(Warehouse.builder()
+                        .id(1)
+                        .address("Address 1")
+                        .city("City 1")
+                        .country("Brasil")
+                        .number(1)
+                        .state("DF")
+                        .build())
                 .build());
     }
 
@@ -39,8 +47,15 @@ public class RepresentativeService implements RepresentativeServiceInterface{
         // newWarehouse = findById representative.warehouseId
 
         representative.setName(representativeDto.getName());
-        //representative.setWarehouse(newWarehouse);
-        return null;
+        representative.setWarehouse(Warehouse.builder()
+                .id(2)
+                .address("Address 1")
+                .city("City 1")
+                .country("Brasil")
+                .number(1)
+                .state("DF")
+                .build());
+        return representativeRepository.save(representative);
     }
 
     @Override

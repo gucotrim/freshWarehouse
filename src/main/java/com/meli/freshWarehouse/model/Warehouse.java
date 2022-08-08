@@ -1,5 +1,6 @@
 package com.meli.freshWarehouse.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,10 +37,10 @@ public class Warehouse {
     private int number;
 
     @OneToMany(mappedBy = "warehouse")
-    @JsonIgnoreProperties("warehouse")
+    @JsonIgnore
     private Set<Representative> listRepresentative;
 
     @OneToMany(mappedBy = "warehouse")
-    @JsonIgnoreProperties("warehouse")
+    @JsonIgnore
     private Set<Section> listSection;
 }
