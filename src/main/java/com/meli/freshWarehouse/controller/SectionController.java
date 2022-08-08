@@ -55,7 +55,7 @@ public class SectionController {
      * @see <a href="http://localhost:8080/api/v1/fresh-products/section">Get Section by id</a>
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Section> getSectionById(@PathVariable long id) {
+    public ResponseEntity<Section> getSectionById(@PathVariable Long id) {
         return ResponseEntity.ok(sectionService.getById(id));
     }
 
@@ -63,19 +63,19 @@ public class SectionController {
      * Update a section by id
      *
      * @param section
-     * @return
+     * @return Section updated.
      * @see <a href="http://localhost:8080/api/v1/fresh-products/section">Update section</a>
      */
     @PutMapping("/{id}")
-    public ResponseEntity<SectionDto> updateSection(@RequestBody Section section) {
-        return ResponseEntity.ok(sectionService.updateSection(section));
+    public ResponseEntity<Section> updateSection(@PathVariable Long id, @RequestBody SectionDto section) {
+        return ResponseEntity.ok(sectionService.updateSection(id, section));
     }
 
     /**
      * Delete a section by id
      *
      * @param id
-     * @return
+     * @see <a href="http://localhost:8080/api/v1/fresh-products/section">Delete section</a>
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {

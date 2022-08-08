@@ -16,7 +16,7 @@ public interface ISectionService {
 
     Section getById(long id);
 
-    SectionDto updateSection(Section section);
+    Section updateSection(Long id, SectionDto section);
 
     void deleteSectionById(long id);
 

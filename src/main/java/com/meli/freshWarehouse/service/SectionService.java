@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.ToDoubleBiFunction;
-import java.util.stream.Collectors;
 
 /**
  * Service to implement Section
@@ -21,20 +19,24 @@ import java.util.stream.Collectors;
 public class SectionService implements ISectionService {
 
     private final ISectionRepo sectionRepo;
+    private final IWarehouseService warehouseService;
 
-    public SectionService(ISectionRepo sectionRepo) {
+    public SectionService(ISectionRepo sectionRepo, IWarehouseService warehouseRepo) {
         this.sectionRepo = sectionRepo;
+        this.warehouseService = warehouseRepo;
     }
 
     @Override
     public Section save(SectionDto newSection) {
 
-//        Section section = sectionRepo.save(Section.builder()
-//                        .name(newSection.getName())
-//                        .n
-//                .build())
+        Warehouse findWarehouse = warehouseService.getWarehouseById(newSection.getIdWarehouse());
 
-        return null;
+        return sectionRepo.save(Section.builder()
+                        .name(newSection.getName())
+                        .availableSpace(newSection.getAvailableSpace())
+                        .warehouse(findWarehouse)
+                .build());
+
     }
 
     @Transactional
@@ -58,20 +60,17 @@ public class SectionService implements ISectionService {
     }
 
     @Override
-    public SectionDto updateSection(Section section) {
+    public Section updateSection(Long id, SectionDto section) {
 
-        Section existsSection = this.getById(section.getId());
+        Section existsSection = this.getById(id);
+        Warehouse findWarehouse = warehouseService.getWarehouseById(section.getIdWarehouse());
 
         existsSection.setName(section.getName());
         existsSection.setAvailableSpace(section.getAvailableSpace());
-        existsSection.setWarehouse(section.getWarehouse());
+        existsSection.setWarehouse(findWarehouse);
 
-        Section updatedSection = sectionRepo.save(existsSection);
+        return sectionRepo.save(existsSection);
 
-        return SectionDto.builder()
-                .name(updatedSection.getName())
-                .availableSpace(updatedSection.getAvailableSpace())
-                .build();
     }
 
     @Override

@@ -24,16 +24,15 @@ public class Section {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "name", length = 100, nullable = false)
     @NotEmpty(message = "The field name cannot be empty")
     private String name;
 
-    @NotEmpty(message = "The field cannot be empty")
-    @NotNull(message = "The file cannot be empty")
+    @NotNull(message = "The field cannot be empty")
     @Column(name = "available_space", nullable = false)
-    private int availableSpace;
+    private Integer availableSpace;
 
     @ManyToOne
     @JoinColumn(name = "id_warehouse", nullable = false)
