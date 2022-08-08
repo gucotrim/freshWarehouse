@@ -1,5 +1,6 @@
 package com.meli.freshWarehouse.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +21,6 @@ public class Warehouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(name = "address")
     private String address;
 
@@ -37,11 +37,11 @@ public class Warehouse {
     private Integer number;
 
     @OneToMany(mappedBy = "warehouse")
-    @JsonIgnoreProperties("warehouse")
+    @JsonIgnore
     private Set<Representative> listRepresentative;
 
     @OneToMany(mappedBy = "warehouse")
-    @JsonIgnoreProperties("warehouse")
+    @JsonIgnore
     private Set<Section> listSection;
 
 

@@ -5,8 +5,10 @@ import com.meli.freshWarehouse.model.Warehouse;
 import lombok.Getter;
 
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Getter
 
@@ -20,6 +22,7 @@ public class WarehouseDTO {
     @NotBlank
     private String country;
     @NotNull
+    @Positive
     private Integer number;
 
     @Deprecated
