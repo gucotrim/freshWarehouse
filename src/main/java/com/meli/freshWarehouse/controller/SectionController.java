@@ -79,7 +79,7 @@ public class SectionController {
      * @see <a href="http://localhost:8080/api/v1/fresh-products/section">Delete section</a>
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         sectionService.deleteSectionById(id);
         return ResponseEntity.noContent().build();
     }
