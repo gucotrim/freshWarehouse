@@ -4,22 +4,16 @@ import com.meli.freshWarehouse.exception.ExceededStock;
 import com.meli.freshWarehouse.exception.ExceptionDetails;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.exception.WarehouseNotFoundException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ExceptionHandlerController {
