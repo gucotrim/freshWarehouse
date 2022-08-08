@@ -1,37 +1,32 @@
 package com.meli.freshWarehouse.service;
 
-import com.meli.freshWarehouse.dto.RepresentativeDto;
+import com.meli.freshWarehouse.dto.RepresentativeDTO;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.model.Representative;
 import com.meli.freshWarehouse.model.Warehouse;
-import com.meli.freshWarehouse.repository.RepresentativeRepository;
+import com.meli.freshWarehouse.repository.RepresentativeRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class RepresentativeService implements RepresentativeServiceInterface{
+public class RepresentativeService implements IRepresentativeService {
 
-    private final RepresentativeRepository representativeRepository;
+    private final RepresentativeRepo representativeRepository;
+    private final IWarehouseService warehouseService;
 
-    public RepresentativeService(RepresentativeRepository representativeRepository) {
+    public RepresentativeService(RepresentativeRepo representativeRepository, IWarehouseService warehouseService) {
         this.representativeRepository = representativeRepository;
+        this.warehouseService = warehouseService;
     }
 
     @Override
-    public Representative save(RepresentativeDto representativeDto) {
-        // findById representative.warehouseId Address 1', 'City 1', 'Brasil', 1, 'DF'
+    public Representative save(RepresentativeDTO representativeDto) {
+        Warehouse warehouse = warehouseService.getWarehouseById(representativeDto.getWarehouseId());
 
         return representativeRepository.save(Representative.builder()
                 .name(representativeDto.getName())
-                .warehouse(Warehouse.builder()
-                        .id(1)
-                        .address("Address 1")
-                        .city("City 1")
-                        .country("Brasil")
-                        .number(1)
-                        .state("DF")
-                        .build())
+                .warehouse(warehouse)
                 .build());
     }
 
@@ -41,20 +36,13 @@ public class RepresentativeService implements RepresentativeServiceInterface{
     }
 
     @Override
-    public Representative update(long id, RepresentativeDto representativeDto) {
+    public Representative update(long id, RepresentativeDTO representativeDto) {
         Representative representative = this.findById(id);
+        Warehouse warehouse = warehouseService.getWarehouseById(representativeDto.getWarehouseId());
 
-        // newWarehouse = findById representative.warehouseId
 
         representative.setName(representativeDto.getName());
-        representative.setWarehouse(Warehouse.builder()
-                .id(2)
-                .address("Address 1")
-                .city("City 1")
-                .country("Brasil")
-                .number(1)
-                .state("DF")
-                .build());
+        representative.setWarehouse(warehouse);
         return representativeRepository.save(representative);
     }
 

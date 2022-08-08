@@ -1,6 +1,6 @@
 package com.meli.freshWarehouse.controller;
 
-import com.meli.freshWarehouse.dto.RepresentativeDto;
+import com.meli.freshWarehouse.dto.RepresentativeDTO;
 import com.meli.freshWarehouse.model.Representative;
 import com.meli.freshWarehouse.service.RepresentativeService;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class RepresentativeController {
      * @see <a href="http://localhost:8080/api/v1/fresh-products/representative">Saves a representative</a>
      */
     @PostMapping
-    public ResponseEntity<Representative> save(@RequestBody @Valid RepresentativeDto representativeDto) {
+    public ResponseEntity<Representative> save(@RequestBody @Valid RepresentativeDTO representativeDto) {
         return new ResponseEntity<>(representativeService.save(representativeDto), HttpStatus.CREATED);
     }
 
@@ -67,7 +67,7 @@ public class RepresentativeController {
      * @see <a href="http://localhost:8080/api/v1/fresh-products/representative/{id}">Updates a representative by Id</a>
      */
     @PutMapping("/{id}")
-    public ResponseEntity<Representative> update(@PathVariable long id, @RequestBody @Valid RepresentativeDto representativeDto) {
+    public ResponseEntity<Representative> update(@PathVariable long id, @RequestBody @Valid RepresentativeDTO representativeDto) {
         return ResponseEntity.ok(representativeService.update(id, representativeDto));
     }
 
