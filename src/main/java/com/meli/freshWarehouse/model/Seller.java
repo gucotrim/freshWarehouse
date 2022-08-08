@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Data
@@ -20,6 +23,8 @@ public class Seller {
     private long id;
 
     @Column
+    @NotEmpty(message = "Seller name cannot be empty.")
+    @Size(max = 50, message = "Seller name can't exceed 50 characters.")
     private String name;
 
     @OneToMany(mappedBy = "seller")
