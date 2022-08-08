@@ -24,7 +24,7 @@ public class Section {
     private String name;
 
     @Column(name = "available_space")
-    private String availableSpace;
+    private int availableSpace;
 
     @ManyToOne
     @JoinColumn(name = "id_warehouse", nullable = false)
