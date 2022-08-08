@@ -2,15 +2,15 @@ package com.meli.freshWarehouse.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
+import javax.validation.constraints.*;
 
 @Data
 @Builder
@@ -20,13 +20,17 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
+    @NotBlank(message = "Name is mandatory")
+    @Size(max = 50, message = "Product name cannot exceed 45 characters")
     private String name;
 
-    @Column(name = "price")
-    private double price;
+    @Column(name = "price", nullable = false)
+    @Digits(integer = 4, fraction = 2)
+    @DecimalMax(value = "10000.0", message = "Price cannot exceed 10000.0") @DecimalMin(value = "0.0", message = "Price should be greater then zero")
+    private Double price;
 
     @ManyToOne
     @JoinColumn(name = "id_seller", nullable = false)
@@ -40,4 +44,6 @@ public class Product {
     @JsonIgnore
     private Set<Batch> listBatch;
 
+    public Product(String name, Double price, Long sellerId, Long sectionId) {
+    }
 }
