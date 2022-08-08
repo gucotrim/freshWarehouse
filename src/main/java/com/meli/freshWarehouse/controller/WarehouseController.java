@@ -25,8 +25,8 @@ public class WarehouseController {
     /**
      * Saves a new warehouse
      * @return Saves a new warehouse, returns an exception if a warehouse ID isn't found.
-     * @throws WarehouseNotFoundException When a property doesn't exist.
-     * @see <a href="http://localhost:8080/api/vi/warehouse">Saves a warehouse</a>
+     * @throws WarehouseNotFoundException When a Warehouse ID doesn't exist.
+     * @see <a href="http://localhost:8080/api/v1/warehouse">Saves a warehouse</a>
      */
     @PostMapping
     public ResponseEntity<Warehouse> saveWarehouse(@RequestBody @Valid WarehouseDTO warehouseDTO) {
@@ -36,8 +36,8 @@ public class WarehouseController {
      * Get all warehouses saved
      *
      * @return Get all warehouses saved, return an exception if a warehouse ID isn't found.
-     * @throws WarehouseNotFoundException When a warehouse doesn't exist.
-     * @see <a href="http://localhost:8080/api/vi/warehouse">Gets all warehouses saved</a>
+     * @throws WarehouseNotFoundException When a warehouse ID doesn't exist.
+     * @see <a href="http://localhost:8080/api/v1/warehouse">Gets all warehouses saved</a>
      */
     @GetMapping
     public ResponseEntity<List<Warehouse>> listAllWarehouse() {
@@ -47,8 +47,8 @@ public class WarehouseController {
      * Gets warehouses by id
      *
      * @return warehouses by id, return an exception if a warehouse ID isn't found.
-     * @throws WarehouseNotFoundException When a warehouse doesn't exist.
-     * @see <a href="http://localhost:8080/api/vi/warehouse/{id}">Get all the warehouses by id</a>
+     * @throws WarehouseNotFoundException When a warehouse ID doesn't exist.
+     * @see <a href="http://localhost:8080/api/v1/warehouse/{id}">Get all the warehouses by id</a>
      */
     @GetMapping("/{id}")
     public ResponseEntity<Warehouse> getWarehouseById(@PathVariable Long id) {
@@ -58,8 +58,8 @@ public class WarehouseController {
      * Updates a warehouse by id
      *
      * @return an updated warehouse, returns an exception if a warehouse ID isn't found.
-     * @throws WarehouseNotFoundException When a property doesn't exist.
-     * @see <a href="http://localhost:8080/api/vi/warehouse">Saves a warehouse</a>
+     * @throws WarehouseNotFoundException When a warehouse ID doesn't exist.
+     * @see <a href="http://localhost:8080/api/v1/warehouse">Saves a warehouse</a>
      */
     @PutMapping
     public ResponseEntity <Warehouse> updateWarehouse(@RequestBody @Valid Warehouse warehouse) {
