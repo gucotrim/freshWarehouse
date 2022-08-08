@@ -32,9 +32,10 @@ public class SellerService implements ISellerService {
 
     @Override
     public Seller updateSeller(Seller seller) {
-        getSellerById(seller.getId());
 
-        return repository.save(seller);
+        Seller sellerFound = getSellerById(seller.getId());
+        sellerFound.setName(seller.getName());
+        return repository.save(sellerFound);
     }
 
     @Override
