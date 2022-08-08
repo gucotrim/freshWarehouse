@@ -21,7 +21,7 @@ public class SellerController {
     /**
      * Gets the id of a seller
      *
-     * @param id - Property id.
+     * @param id - Seller id.
      * @return A seller, return an exception if property isn't found.
      * @throws NotFoundException When a property doesn't exist.
      * @see <a href="http://localhost:8080/api/v1/fresh-products/seller/{id}">Get seller</a>
@@ -34,7 +34,7 @@ public class SellerController {
     /**
      * Save a new seller
      *
-     * @param sellerDto - Property sellerDto.
+     * @param sellerDto - SellerDto sellerDto.
      * @return A seller.
      * @see <a href="http://localhost:8080/api/v1/fresh-products/seller"> Post seller</a>
      */
@@ -46,7 +46,7 @@ public class SellerController {
     /**
      * Update a seller with id
      *
-     * @param seller - Property seller.
+     * @param seller - Seller seller.
      * @return A seller.
      * @see <a href="http://localhost:8080/api/v1/fresh-products/seller"> Update seller</a>
      */
@@ -58,7 +58,7 @@ public class SellerController {
     /**
      * Delete a seller with id
      *
-     * @param id - Property id.
+     * @param id - Seller id.
      * @return Void
      * @see <a href="http://localhost:8080/api/v1/fresh-products/seller"> Delete seller</a>
      */

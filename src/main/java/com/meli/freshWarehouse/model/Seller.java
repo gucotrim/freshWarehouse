@@ -24,7 +24,7 @@ public class Seller {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column
     @NotEmpty(message = "Seller name cannot be empty.")
