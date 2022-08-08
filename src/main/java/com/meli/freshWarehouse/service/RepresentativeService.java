@@ -36,7 +36,7 @@ public class RepresentativeService implements IRepresentativeService {
     }
 
     @Override
-    public Representative update(long id, RepresentativeDTO representativeDto) {
+    public Representative update(Long id, RepresentativeDTO representativeDto) {
         Representative representative = this.findById(id);
         Warehouse warehouse = warehouseService.getWarehouseById(representativeDto.getWarehouseId());
 
@@ -52,12 +52,12 @@ public class RepresentativeService implements IRepresentativeService {
     }
 
     @Override
-    public Representative findById(long id) {
+    public Representative findById(Long id) {
         return representativeRepository.findById(id).orElseThrow(() -> new NotFoundException("No representative was found with this id"));
     }
 
     @Override
-    public boolean existsById(long id) {
+    public boolean existsById(Long id) {
         return representativeRepository.existsById(id);
     }
 }

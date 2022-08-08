@@ -54,7 +54,7 @@ public class RepresentativeController {
      * @see <a href="http://localhost:8080/api/v1/fresh-products/representative/{id}">Get a representative by Id</a>
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Representative> findById(@PathVariable long id) {
+    public ResponseEntity<Representative> findById(@PathVariable Long id) {
         return ResponseEntity.ok(representativeService.findById(id));
     }
 
@@ -67,7 +67,7 @@ public class RepresentativeController {
      * @see <a href="http://localhost:8080/api/v1/fresh-products/representative/{id}">Updates a representative by Id</a>
      */
     @PutMapping("/{id}")
-    public ResponseEntity<Representative> update(@PathVariable long id, @RequestBody @Valid RepresentativeDTO representativeDto) {
+    public ResponseEntity<Representative> update(@PathVariable Long id, @RequestBody @Valid RepresentativeDTO representativeDto) {
         return ResponseEntity.ok(representativeService.update(id, representativeDto));
     }
 
@@ -80,7 +80,7 @@ public class RepresentativeController {
      * @see <a href="http://localhost:8080/api/v1/fresh-products/representative/{id}">Delete a representative by Id</a>
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         representativeService.delete(id);
         return ResponseEntity.noContent().build();
     }

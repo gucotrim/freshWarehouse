@@ -8,8 +8,8 @@ import java.util.List;
 public interface IRepresentativeService {
     Representative save(RepresentativeDTO representativeDto);
     List<Representative> findAll();
-    Representative update(long id, RepresentativeDTO representativeDto);
+    Representative update(Long id, RepresentativeDTO representativeDto);
     void delete(Long id);
-    Representative findById(long id);
-    boolean existsById(long id);
+    Representative findById(Long id);
+    boolean existsById(Long id);
 }
