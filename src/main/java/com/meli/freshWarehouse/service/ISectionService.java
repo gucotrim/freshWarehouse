@@ -10,13 +10,15 @@ import java.util.List;
  * Interface to section service
  */
 public interface ISectionService {
-    SectionDto save(Section newSection);
+    Section save(SectionDto newSection);
 
-    List<SectionDto> getAllSection();
+    List<Section> getAllSection();
 
-    SectionDto getById(long id);
+    Section getById(long id);
 
     SectionDto updateSection(Section section);
 
     void deleteSectionById(long id);
+
+    boolean existById(long id);
 }

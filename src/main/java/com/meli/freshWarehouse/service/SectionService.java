@@ -4,48 +4,44 @@ import com.meli.freshWarehouse.dto.SectionDto;
 import com.meli.freshWarehouse.exception.DataNotFoundException;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.model.Section;
+import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.repository.ISectionRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.ToDoubleBiFunction;
 import java.util.stream.Collectors;
 
 /**
  * Service to implement Section
  */
+@Service
 public class SectionService implements ISectionService {
 
-    @Autowired
-    private ISectionRepo sectionRepo;
+    private final ISectionRepo sectionRepo;
 
-    @Override
-    public SectionDto save(Section newSection) {
-
-        if (newSection == null || newSection.getId() != 0) {
-            throw new DataNotFoundException("The section cannot be null or have an id defined.");
-        }
-
-        Section savedSection = sectionRepo.save(newSection);
-
-        return SectionDto.builder()
-                .name(savedSection.getName())
-                .availableSpace(savedSection.getAvailableSpace())
-                .build();
+    public SectionService(ISectionRepo sectionRepo) {
+        this.sectionRepo = sectionRepo;
     }
 
     @Override
-    public List<SectionDto> getAllSection() {
+    public Section save(SectionDto newSection) {
+
+//        Section section = sectionRepo.save(Section.builder()
+//                        .name(newSection.getName())
+//                        .n
+//                .build())
+
+        return null;
+    }
+
+    @Transactional
+    public List<Section> getAllSection() {
 
         try {
-            List<Section> sectionList = sectionRepo.findAll();
-
-            return sectionList.stream().map(s -> SectionDto.builder()
-                            .name(s.getName())
-                            .availableSpace(s.getAvailableSpace())
-                            .build())
-                    .collect(Collectors.toList());
-
+            return sectionRepo.findAll();
         } catch (NotFoundException e) {
             throw new DataNotFoundException("Data not found.");
         }
@@ -53,27 +49,24 @@ public class SectionService implements ISectionService {
     }
 
     @Override
-    public SectionDto getById(long id) {
+    public Section getById(long id) {
 
-        try {
-            Section foundSection = sectionRepo.findById(id).get();
-            return SectionDto.builder()
-                    .name(foundSection.getName())
-                    .availableSpace(foundSection.getAvailableSpace())
-                    .build();
-        } catch (NotFoundException e) {
-            throw new NotFoundException("Section not found by id: " + id);
-        }
-
+        return sectionRepo.findById(id)
+                .orElseThrow(() -> new NotFoundException(
+                        "Section not found by id: " + id
+                ));
     }
 
     @Override
     public SectionDto updateSection(Section section) {
-        if (section == null || section.getId() == 0) {
-            throw new NotFoundException("The section cannot be null or have an id..");
-        }
 
-        Section updatedSection = sectionRepo.save(section);
+        Section existsSection = this.getById(section.getId());
+
+        existsSection.setName(section.getName());
+        existsSection.setAvailableSpace(section.getAvailableSpace());
+        existsSection.setWarehouse(section.getWarehouse());
+
+        Section updatedSection = sectionRepo.save(existsSection);
 
         return SectionDto.builder()
                 .name(updatedSection.getName())
@@ -85,10 +78,16 @@ public class SectionService implements ISectionService {
     public void deleteSectionById(long id) {
 
         Optional<Section> sectionFound = sectionRepo.findById(id);
-        if(sectionFound.isEmpty()) {
+        if (sectionFound.isEmpty()) {
             throw new DataNotFoundException("Id not found");
         }
         sectionRepo.deleteById(id);
 
     }
+
+    @Override
+    public boolean existById(long id){
+        return sectionRepo.existsById(id);
+    }
+
 }

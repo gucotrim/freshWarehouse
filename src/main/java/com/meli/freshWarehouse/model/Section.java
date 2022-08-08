@@ -1,5 +1,6 @@
 package com.meli.freshWarehouse.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +26,7 @@ public class Section {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name", length = 100, nullable = false, unique = true)
+    @Column(name = "name", length = 100, nullable = false)
     @NotEmpty(message = "The field name cannot be empty")
     private String name;
 
@@ -39,15 +40,15 @@ public class Section {
     private Warehouse warehouse;
 
     @OneToMany(mappedBy = "section")
-    @JsonIgnoreProperties("section")
+    @JsonIgnore
     private Set<Order> listOrder;
 
     @OneToMany(mappedBy = "section")
-    @JsonIgnoreProperties("section")
+    @JsonIgnore
     private Set<Product> listProduct;
 
     @OneToMany(mappedBy = "section")
-    @JsonIgnoreProperties("section")
+    @JsonIgnore
     private Set<Batch> listBatch;
 
 }
