@@ -24,8 +24,7 @@ public class WarehouseController {
     }
     /**
      * Saves a new warehouse
-     * @return Saves a new warehouse, returns an exception if a warehouse ID isn't found.
-     * @throws WarehouseNotFoundException When a Warehouse ID doesn't exist.
+     * @return Saves a new warehouse.
      * @see <a href="http://localhost:8080/api/v1/warehouse">Saves a warehouse</a>
      */
     @PostMapping
@@ -35,8 +34,7 @@ public class WarehouseController {
     /**
      * Get all warehouses saved
      *
-     * @return Get all warehouses saved, return an exception if a warehouse ID isn't found.
-     * @throws WarehouseNotFoundException When a warehouse ID doesn't exist.
+     * @return Get all warehouses saved.
      * @see <a href="http://localhost:8080/api/v1/warehouse">Gets all warehouses saved</a>
      */
     @GetMapping
