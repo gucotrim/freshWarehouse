@@ -1,16 +1,14 @@
 package com.meli.freshWarehouse.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.meli.freshWarehouse.dto.SellerDto;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.model.Seller;
 import com.meli.freshWarehouse.repository.ISellerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
-
 @Service
-public class SellerService implements ISellerService{
+public class SellerService implements ISellerService {
 
     @Autowired
     ISellerRepo repository;
@@ -21,9 +19,8 @@ public class SellerService implements ISellerService{
     }
 
     @Override
-    public Seller insertSeller(Seller seller) {
-        if(seller.getId() > 0) return null;
-        return repository.save(seller);
+    public Seller insertSeller(SellerDto sellerDto) {
+        return repository.save(sellerDto.toModel());
     }
 
     @Override
@@ -37,6 +34,11 @@ public class SellerService implements ISellerService{
     public Seller updateSeller(Seller seller) {
         getSellerById(seller.getId());
 
-       return repository.save(seller);
+        return repository.save(seller);
+    }
+
+    @Override
+    public boolean existsById(long id) {
+        return repository.existsById(id);
     }
 }

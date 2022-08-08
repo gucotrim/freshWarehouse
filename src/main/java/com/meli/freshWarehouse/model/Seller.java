@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -18,6 +17,11 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 public class Seller {
+
+    public Seller(String name) {
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -30,5 +34,6 @@ public class Seller {
     @OneToMany(mappedBy = "seller")
     @JsonIgnoreProperties("seller")
     private Set<Product> listProduct;
+
 
 }
