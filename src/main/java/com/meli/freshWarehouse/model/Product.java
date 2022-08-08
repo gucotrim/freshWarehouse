@@ -1,6 +1,7 @@
 package com.meli.freshWarehouse.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,7 +37,7 @@ public class Product {
     private Section section;
 
     @OneToMany(mappedBy = "product")
-    @JsonIgnoreProperties("product")
+    @JsonIgnore
     private Set<Batch> listBatch;
 
 }
