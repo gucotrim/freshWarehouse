@@ -1,31 +1,33 @@
 package com.meli.freshWarehouse.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Set;
+import javax.validation.constraints.*;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Getter @Setter
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
+    @NotBlank(message = "Name is mandatory")
+    @Size(max = 50, message = "Product name cannot exceed 45 characters")
     private String name;
 
-    @Column(name = "price")
-    private double price;
+    @Column(name = "price", nullable = false)
+    @Digits(integer = 4, fraction = 2)
+    @DecimalMax(value = "10000.0", message = "Price cannot exceed 10000.0") @DecimalMin(value = "0.0", message = "Price should be greater then zero")
+    private Double price;
 
     @ManyToOne
     @JoinColumn(name = "id_seller", nullable = false)
@@ -36,7 +38,14 @@ public class Product {
     private Section section;
 
     @OneToMany(mappedBy = "product")
-    @JsonIgnoreProperties("product")
+    @JsonIgnore
     private Set<Batch> listBatch;
+
+    public Product(String name, Double price, Seller seller, Section section) {
+        this.name = name;
+        this.price = price;
+        this.seller = seller;
+        this.section = section;
+    }
 
 }
