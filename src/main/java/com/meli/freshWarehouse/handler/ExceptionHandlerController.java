@@ -3,6 +3,7 @@ package com.meli.freshWarehouse.handler;
 import com.meli.freshWarehouse.exception.ExceededStock;
 import com.meli.freshWarehouse.exception.ExceptionDetails;
 import com.meli.freshWarehouse.exception.NotFoundException;
+import com.meli.freshWarehouse.exception.WarehouseNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,20 @@ public class ExceptionHandlerController {
 
         return new ResponseEntity<>(ExceptionDetails.builder()
                 .title("Data object not found.")
+                .status(HttpStatus.NOT_FOUND.value())
+                .message(ex.getMessage())
+                .localDateTime(LocalDateTime.now())
+                .build(),
+                HttpStatus.NOT_FOUND
+        );
+
+    }
+
+    @ExceptionHandler({WarehouseNotFoundException.class})
+    public ResponseEntity<ExceptionDetails> handlerNotFoundEx(WarehouseNotFoundException ex) {
+
+        return new ResponseEntity<>(ExceptionDetails.builder()
+                .title("Warehouse not found.")
                 .status(HttpStatus.NOT_FOUND.value())
                 .message(ex.getMessage())
                 .localDateTime(LocalDateTime.now())
