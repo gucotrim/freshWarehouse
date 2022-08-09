@@ -1,14 +1,13 @@
 package com.meli.freshWarehouse.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -20,10 +19,11 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
+    //@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss") TODO - voltar aqui
     @Column(name = "order_date")
-    private Date orderDate;
+    private LocalDate orderDate;
 
     @ManyToOne
     @JoinColumn(name = "id_representative", nullable = false)

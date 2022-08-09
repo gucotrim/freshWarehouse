@@ -6,7 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -17,28 +18,31 @@ public class Batch {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "current_temperature")
-    private float currentTemperature;
+    private Float currentTemperature;
 
     @Column(name = "minimum_temperature")
-    private float minimumTemperature;
+    private Float minimumTemperature;
 
     @Column(name = "initial_quantity")
-    private int initialQuantity;
+    private Integer initialQuantity;
 
     @Column(name = "current_quantity")
-    private int currentQuantity;
+    private Integer currentQuantity;
 
+    //@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "manufacturing_date")
-    private Date manufacturingDate;
+    private LocalDate manufacturingDate;
 
+    //@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "manufacturing_time")
-    private Date manufacturingTime;
+    private LocalDateTime manufacturingTime;
 
+    //@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss") TODO Voltar aqui
     @Column(name = "due_date")
-    private Date dueDate;
+    private LocalDate dueDate;
 
     @ManyToOne
     @JoinColumn(name = "id_order", nullable = false)
@@ -51,6 +55,5 @@ public class Batch {
     @ManyToOne
     @JoinColumn(name = "id_product", nullable = false)
     private Product product;
-
 
 }
