@@ -46,7 +46,7 @@ public class Batch {
 
     @ManyToOne
     @JoinColumn(name = "id_order", nullable = false)
-    private Order order;
+    private InboundOrder inboundOrder;
 
     @ManyToOne
     @JoinColumn(name = "id_section", nullable = false)

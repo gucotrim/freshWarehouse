@@ -1,7 +1,6 @@
 package com.meli.freshWarehouse.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +28,6 @@ public class Representative {
 
     @OneToMany(mappedBy = "representative")
     @JsonIgnore
-    private Set<Order> listOrder;
+    private Set<InboundOrder> listInboundOrder;
 
 }
