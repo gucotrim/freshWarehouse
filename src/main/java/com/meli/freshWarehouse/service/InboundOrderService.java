@@ -1,21 +1,20 @@
 package com.meli.freshWarehouse.service;
 
-import com.meli.freshWarehouse.dto.BatchResponseDto;
-import com.meli.freshWarehouse.dto.InboundOrderDto;
-import com.meli.freshWarehouse.dto.InboundOrderResponseDto;
-import com.meli.freshWarehouse.dto.OrderResponseDto;
+import com.meli.freshWarehouse.dto.*;
+import com.meli.freshWarehouse.exception.ExceededStock;
 import com.meli.freshWarehouse.exception.ItsNotBelongException;
 import com.meli.freshWarehouse.model.*;
 import com.meli.freshWarehouse.repository.BatchRepo;
 import com.meli.freshWarehouse.repository.OrderRepo;
-import net.bytebuddy.implementation.bytecode.Throw;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class InboundOrderService implements IInboundOrderService{
+@Log4j2
+public class InboundOrderService implements IInboundOrderService {
 
     private final BatchRepo batchRepo;
     private final OrderRepo orderRepo;
@@ -35,9 +34,13 @@ public class InboundOrderService implements IInboundOrderService{
     public InboundOrderResponseDto save(InboundOrderDto inboundOrderDto) {
 
         Representative representative = representativeService.findById(inboundOrderDto.getRepresentativeId());
+
+        //Validate section
         Section section = sectionService.getById(inboundOrderDto.getSectionId());
 
         orderIsValid(representative, section);
+
+        Integer quantityStock = validateAvailableSpace(section, inboundOrderDto);
 
         Order order = orderRepo.save(Order.builder()
                 .orderDate(inboundOrderDto.getOrderDate())
@@ -60,6 +63,14 @@ public class InboundOrderService implements IInboundOrderService{
                         .build()).collect(Collectors.toList())
         );
 
+        section.setAvailableSpace(quantityStock);
+
+        sectionService.updateSection(section.getId(), SectionDto.builder()
+                .name(section.getName())
+                .availableSpace(section.getAvailableSpace())
+                .build());
+
+
         return InboundOrderResponseDto.builder()
                 .order(OrderResponseDto.builder()
                         .id(order.getId())
@@ -77,13 +88,13 @@ public class InboundOrderService implements IInboundOrderService{
                                 .manufacturingTime(b.getManufacturingTime())
                                 .dueDate(b.getDueDate())
                                 .build()
-                        ).collect(Collectors.toList()))
+                ).collect(Collectors.toList()))
                 .build();
     }
 
     private void orderIsValid(Representative representative, Section section) {
-        if(representative.getWarehouse().getId().equals(section.getWarehouse().getId())) {
-
+        if (representative.getWarehouse().getId().equals(section.getWarehouse().getId())) {
+            log.info("Representative is valid.");
         } else {
             throw new ItsNotBelongException("Representative doesn't belong to the warehouse");
         }
@@ -95,5 +106,15 @@ public class InboundOrderService implements IInboundOrderService{
         } else {
             throw new ItsNotBelongException("Product doesn't belong to the section");
         }
+    }
+
+    private Integer validateAvailableSpace(Section section, InboundOrderDto inboundOrderDto) {
+        Integer quantity = inboundOrderDto.getBatchStockList().stream().reduce(0, (partialQuantity, batch) ->
+                partialQuantity + batch.getInitialQuantity(), Integer::sum);
+
+        if (section.getAvailableSpace() <= quantity) {
+            throw new ExceededStock("Quantity of products in batches exceeds current stock value");
+        }
+        return section.getAvailableSpace() - quantity;
     }
 }
