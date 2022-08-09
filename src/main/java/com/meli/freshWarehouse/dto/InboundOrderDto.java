@@ -1,19 +1,21 @@
 package com.meli.freshWarehouse.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Getter
 @Setter
 public class InboundOrderDto {
 
-        private LocalDate orderDate;
+        @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "The valid Date is: 'yyyy-MM-dd'")
+        @NotNull(message = "The field is not null.")
+        private String orderDate;
         private Long sectionId;
         private Long representativeId;
-        private Set<BatchDto> batchStockList;
+        private Set<@Valid BatchDto> batchStockList;
 }

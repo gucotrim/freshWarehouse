@@ -56,7 +56,7 @@ public class SectionController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Section> getSectionById(@PathVariable Long id) {
-        return ResponseEntity.ok(sectionService.getById(id));
+        return ResponseEntity.ok(sectionService.findById(id));
     }
 
     /**

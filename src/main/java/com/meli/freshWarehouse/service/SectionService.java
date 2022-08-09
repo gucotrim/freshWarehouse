@@ -63,7 +63,7 @@ public class SectionService implements ISectionService {
     public Section updateSection(Long id, SectionDto section) {
 
         Section existsSection = this.getById(id);
-        Warehouse findWarehouse = warehouseService.getWarehouseById(section.getIdWarehouse());
+        Warehouse findWarehouse = warehouseService.getWarehouseById(existsSection.getWarehouse().getId());
 
         existsSection.setName(section.getName());
         existsSection.setAvailableSpace(section.getAvailableSpace());

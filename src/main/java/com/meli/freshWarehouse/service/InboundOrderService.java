@@ -7,8 +7,11 @@ import com.meli.freshWarehouse.model.*;
 import com.meli.freshWarehouse.repository.BatchRepo;
 import com.meli.freshWarehouse.repository.OrderRepo;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,12 +41,15 @@ public class InboundOrderService implements IInboundOrderService {
         //Validate section
         Section section = sectionService.getById(inboundOrderDto.getSectionId());
 
+        //Validate Order Is valid
         orderIsValid(representative, section);
 
         Integer quantityStock = validateAvailableSpace(section, inboundOrderDto);
 
+
         Order order = orderRepo.save(Order.builder()
-                .orderDate(inboundOrderDto.getOrderDate())
+                .orderDate(LocalDate.parse(inboundOrderDto.getOrderDate(),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .representative(representative)
                 .section(section)
                 .build());
@@ -113,7 +119,8 @@ public class InboundOrderService implements IInboundOrderService {
                 partialQuantity + batch.getInitialQuantity(), Integer::sum);
 
         if (section.getAvailableSpace() <= quantity) {
-            throw new ExceededStock("Quantity of products in batches exceeds current stock value");
+            throw new ExceededStock("Quantity of products in batches exceeds current stock value. Total Space of: "
+                    + quantity);
         }
         return section.getAvailableSpace() - quantity;
     }
