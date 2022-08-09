@@ -1,6 +1,7 @@
 package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.InboundOrderDto;
+import com.meli.freshWarehouse.exception.InboundOrderNotFoundException;
 import com.meli.freshWarehouse.exception.WarehouseNotFoundException;
 import com.meli.freshWarehouse.model.InboundOrder;
 import com.meli.freshWarehouse.model.Representative;
@@ -21,16 +22,16 @@ public class InboundOrderService implements IInboundOrder {
 
     @Override
     public InboundOrder getInboundOrderById(Long inboundOrderId) {
-        return inboundOrderRepo.findById(inboundOrderId).orElseThrow(() -> new WarehouseNotFoundException("Warehouse ID not found.")); //TODO arrumar ex
+        return inboundOrderRepo.findById(inboundOrderId).orElseThrow(() -> new InboundOrderNotFoundException("Inbound Order ID not found."));
        }
 
 
     @Override
-    public InboundOrder update(InboundOrderDto update, Long id) {
+    public InboundOrder update(Long id, InboundOrderDto update) {
         InboundOrder order = this.getInboundOrderById(id);
         Representative representative = representativeService.findById(update.getRepresentativeId());
         boolean exists = inboundOrderRepo.existsById(order.getId());
-        if (!exists) throw new WarehouseNotFoundException("Warehouse ID not found.");
+        if (!exists) throw new InboundOrderNotFoundException("Inbound Order ID not found.");
         order.setOrderDate(update.getOrderDate());
         order.setRepresentative(representative);
         return inboundOrderRepo.save(order);

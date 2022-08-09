@@ -6,7 +6,7 @@ import com.meli.freshWarehouse.model.InboundOrder;
 public interface IInboundOrder {
 
 
-    InboundOrder update (InboundOrderDto inboundOrderDto, Long id);
+    InboundOrder update ( Long id, InboundOrderDto inboundOrderDto);
 
     InboundOrder getInboundOrderById (Long inboundOrderId);
 }
