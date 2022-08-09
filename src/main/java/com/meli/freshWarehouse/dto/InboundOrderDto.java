@@ -13,5 +13,5 @@ public class InboundOrderDto {
         private LocalDate orderDate;
         private Long sectionId;
         private Long representativeId;
-        private Set<BatchDto> batchStockList;
+        private Set<BatchResponseDto> batchStockList;
 }

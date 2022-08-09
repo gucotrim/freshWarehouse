@@ -53,5 +53,4 @@ public class Warehouse {
         this.number = number;
     }
 
-
 }

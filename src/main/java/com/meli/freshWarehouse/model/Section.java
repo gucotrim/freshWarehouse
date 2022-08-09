@@ -39,7 +39,7 @@ public class Section {
 
     @OneToMany(mappedBy = "section")
     @JsonIgnore
-    private Set<InboundOrder> listInboundOrder;
+    private Set<Order> listOrder;
 
     @OneToMany(mappedBy = "section")
     @JsonIgnore

@@ -28,6 +28,6 @@ public class Representative {
 
     @OneToMany(mappedBy = "representative")
     @JsonIgnore
-    private Set<InboundOrder> listInboundOrder;
+    private Set<Order> listOrder;
 
 }

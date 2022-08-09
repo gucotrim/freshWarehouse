@@ -1,26 +1,34 @@
 package com.meli.freshWarehouse.controller;
 
 import com.meli.freshWarehouse.dto.InboundOrderDto;
-import com.meli.freshWarehouse.dto.ProductDTO;
-import com.meli.freshWarehouse.exception.NotFoundException;
-import com.meli.freshWarehouse.model.InboundOrder;
-import com.meli.freshWarehouse.repository.InboundOrderRepo;
+import com.meli.freshWarehouse.model.Order;
 import com.meli.freshWarehouse.service.InboundOrderService;
-import com.meli.freshWarehouse.service.RepresentativeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import com.meli.freshWarehouse.dto.InboundOrderResponseDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/inboundorder")
 public class InboundOrderController {
 
     private final InboundOrderService inboundOrderService;
+
     public InboundOrderController(InboundOrderService inboundOrderService) {
         this.inboundOrderService = inboundOrderService;
-
     }
+
+    @PostMapping
+    public ResponseEntity<InboundOrderResponseDto> save(@RequestBody InboundOrderDto inboundOrderDto) {
+        return new ResponseEntity<>(inboundOrderService.save(inboundOrderDto), HttpStatus.CREATED);
+    }
+
     /**
      * Updates a inboundorder by id
      *
@@ -29,9 +37,8 @@ public class InboundOrderController {
      * @see <a href="http://localhost:8080/api/v1/inboundorder">Update a inboundorder</a>
      */
 
-
     @PutMapping("/{id}")
-    public ResponseEntity<InboundOrder> update(@PathVariable Long id, @RequestBody @Valid InboundOrderDto inboundOrderDto) {
+    public ResponseEntity<InboundOrderResponseDto> update(@PathVariable Long id, @RequestBody @Valid InboundOrderDto inboundOrderDto) {
         return ResponseEntity.ok(inboundOrderService.update(id, inboundOrderDto));
     }
 
