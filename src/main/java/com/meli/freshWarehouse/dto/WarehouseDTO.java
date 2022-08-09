@@ -5,26 +5,27 @@ import com.meli.freshWarehouse.model.Warehouse;
 import lombok.Getter;
 
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 
 @Getter
 
 public class WarehouseDTO {
     @NotBlank
-    @Max(60)
+    @Size(max = 60)
     private String address;
+
     @NotBlank
-    @Max(45)
+    @Size(max = 45)
     private String city;
+
     @NotBlank
-    @Max(45)
+    @Size(max = 45)
     private String state;
+
     @NotBlank
-    @Max(45)
+    @Size(max = 45)
     private String country;
+
     @NotNull
     @Positive
     @Max(45)

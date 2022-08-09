@@ -11,7 +11,6 @@ import java.util.List;
 @Setter
 @Builder
 public class InboundOrderResponseDto {
-
-        private Order order;
+        private OrderResponseDto order;
         private List<BatchResponseDto> batchStockList;
 }

@@ -1,9 +1,6 @@
 package com.meli.freshWarehouse.handler;
 
-import com.meli.freshWarehouse.exception.ExceededStock;
-import com.meli.freshWarehouse.exception.ExceptionDetails;
-import com.meli.freshWarehouse.exception.NotFoundException;
-import com.meli.freshWarehouse.exception.WarehouseNotFoundException;
+import com.meli.freshWarehouse.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -103,6 +100,18 @@ public class ExceptionHandlerController {
     public ResponseEntity<ExceptionDetails> handlerNotFoundEx(ExceededStock e) {
         return new ResponseEntity<>(ExceptionDetails.builder()
                 .title("Bad Request.")
+                .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
+                .message(e.getMessage())
+                .localDateTime(LocalDateTime.now())
+                .build(),
+                HttpStatus.UNPROCESSABLE_ENTITY
+        );
+    }
+
+    @ExceptionHandler(ItsNotBelongException.class)
+    public ResponseEntity<ExceptionDetails> handlerNotFoundEx(ItsNotBelongException e) {
+        return new ResponseEntity<>(ExceptionDetails.builder()
+                .title("Unprocessable Entity.")
                 .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
                 .message(e.getMessage())
                 .localDateTime(LocalDateTime.now())
