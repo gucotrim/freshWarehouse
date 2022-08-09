@@ -1,5 +1,6 @@
 package com.meli.freshWarehouse.model;
 
+import com.meli.freshWarehouse.dto.BatchDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -55,5 +56,6 @@ public class Batch {
     @ManyToOne
     @JoinColumn(name = "id_product", nullable = false)
     private Product product;
+
 
 }

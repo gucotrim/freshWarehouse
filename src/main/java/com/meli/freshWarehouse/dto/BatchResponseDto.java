@@ -1,6 +1,6 @@
 package com.meli.freshWarehouse.dto;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +9,10 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class BatchDto {
+@Builder
+public class BatchResponseDto {
 
+    private Long id;
     private Long productId;
     private Float currentTemperature;
     private Float minimumTemperature;
