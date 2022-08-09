@@ -1,6 +1,5 @@
 package com.meli.freshWarehouse.model;
 
-import com.meli.freshWarehouse.dto.BatchDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

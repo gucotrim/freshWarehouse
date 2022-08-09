@@ -7,10 +7,10 @@ import com.meli.freshWarehouse.model.*;
 import com.meli.freshWarehouse.repository.BatchRepo;
 import com.meli.freshWarehouse.repository.OrderRepo;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,15 +37,11 @@ public class InboundOrderService implements IInboundOrderService {
     public InboundOrderResponseDto save(InboundOrderDto inboundOrderDto) {
 
         Representative representative = representativeService.findById(inboundOrderDto.getRepresentativeId());
+        Section section = sectionService.findById(inboundOrderDto.getSectionId());
 
-        //Validate section
-        Section section = sectionService.getById(inboundOrderDto.getSectionId());
-
-        //Validate Order Is valid
         orderIsValid(representative, section);
 
         Integer quantityStock = validateAvailableSpace(section, inboundOrderDto);
-
 
         Order order = orderRepo.save(Order.builder()
                 .orderDate(LocalDate.parse(inboundOrderDto.getOrderDate(),
@@ -54,29 +50,19 @@ public class InboundOrderService implements IInboundOrderService {
                 .section(section)
                 .build());
 
-        List<Batch> batchList = batchRepo.saveAll(
-                inboundOrderDto.getBatchStockList().stream().map(b -> Batch.builder()
-                        .order(order)
-                        .section(order.getSection())
-                        .product(validateProduct(productService.getProductById(b.getProductId()), section))
-                        .currentQuantity(b.getCurrentQuantity())
-                        .currentTemperature(b.getCurrentTemperature())
-                        .initialQuantity(b.getInitialQuantity())
-                        .manufacturingDate(b.getManufacturingDate())
-                        .minimumTemperature(b.getMinimumTemperature())
-                        .dueDate(b.getDueDate())
-                        .manufacturingTime(b.getManufacturingTime())
-                        .build()).collect(Collectors.toList())
-        );
+        List<Batch> batchList = getBatches(inboundOrderDto, section, order);
 
         section.setAvailableSpace(quantityStock);
-
         sectionService.updateSection(section.getId(), SectionDto.builder()
                 .name(section.getName())
                 .availableSpace(section.getAvailableSpace())
                 .build());
 
+        return getInboundOrderResponse(order, batchList);
+    }
 
+
+    private InboundOrderResponseDto getInboundOrderResponse(Order order, List<Batch> batchList) {
         return InboundOrderResponseDto.builder()
                 .order(OrderResponseDto.builder()
                         .id(order.getId())
@@ -96,6 +82,27 @@ public class InboundOrderService implements IInboundOrderService {
                                 .build()
                 ).collect(Collectors.toList()))
                 .build();
+    }
+
+    private List<Batch> getBatches(InboundOrderDto inboundOrderDto, Section section, Order order) {
+        List<Batch> batchList = batchRepo.saveAll(
+                inboundOrderDto.getBatchStockList().stream().map(b -> Batch.builder()
+                        .order(order)
+                        .section(order.getSection())
+                        .product(validateProduct(productService.getProductById(b.getProductId()), section))
+                        .currentQuantity(b.getCurrentQuantity())
+                        .currentTemperature(b.getCurrentTemperature())
+                        .initialQuantity(b.getInitialQuantity())
+                        .manufacturingDate(LocalDate.parse(b.getManufacturingDate(),
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                        .minimumTemperature(b.getMinimumTemperature())
+                        .dueDate(LocalDate.parse(b.getDueDate(),
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                        .manufacturingTime(LocalDateTime.parse(b.getManufacturingTime(),
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")))
+                        .build()).collect(Collectors.toList())
+        );
+        return batchList;
     }
 
     private void orderIsValid(Representative representative, Section section) {
