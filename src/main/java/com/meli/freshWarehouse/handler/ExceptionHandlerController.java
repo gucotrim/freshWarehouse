@@ -1,9 +1,6 @@
 package com.meli.freshWarehouse.handler;
 
-import com.meli.freshWarehouse.exception.ExceededStock;
-import com.meli.freshWarehouse.exception.ExceptionDetails;
-import com.meli.freshWarehouse.exception.NotFoundException;
-import com.meli.freshWarehouse.exception.WarehouseNotFoundException;
+import com.meli.freshWarehouse.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -18,6 +15,7 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class ExceptionHandlerController {
 
+    private String BAD_REQUEST = "Bad Request.";
 
     @ExceptionHandler({NotFoundException.class})
     public ResponseEntity<ExceptionDetails> handlerNotFoundEx(NotFoundException ex) {
@@ -64,7 +62,7 @@ public class ExceptionHandlerController {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ExceptionDetails> handlerNotFoundEx(MethodArgumentTypeMismatchException e) {
         return new ResponseEntity<>(ExceptionDetails.builder()
-                .title("Bad Request.")
+                .title(BAD_REQUEST)
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message("Bad Request. Param " + e.getName() +
                         " has invalid value: " + e.getValue() + ". Expected: Boolean"
@@ -78,7 +76,7 @@ public class ExceptionHandlerController {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ExceptionDetails> handlerNotFoundEx(HttpMessageNotReadableException e) {
         return new ResponseEntity<>(ExceptionDetails.builder()
-                .title("Bad Request.")
+                .title(BAD_REQUEST)
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message("JSON parse error: Cannot deserialize value of type")
                 .localDateTime(LocalDateTime.now())
@@ -90,7 +88,7 @@ public class ExceptionHandlerController {
     @ExceptionHandler(HttpServerErrorException.InternalServerError.class)
     public ResponseEntity<ExceptionDetails> handlerNotFoundEx(HttpServerErrorException e) {
         return new ResponseEntity<>(ExceptionDetails.builder()
-                .title("Bad Request.")
+                .title(BAD_REQUEST)
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message("Internal server Error")
                 .localDateTime(LocalDateTime.now())
@@ -102,7 +100,19 @@ public class ExceptionHandlerController {
     @ExceptionHandler(ExceededStock.class)
     public ResponseEntity<ExceptionDetails> handlerNotFoundEx(ExceededStock e) {
         return new ResponseEntity<>(ExceptionDetails.builder()
-                .title("Bad Request.")
+                .title(BAD_REQUEST)
+                .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
+                .message(e.getMessage())
+                .localDateTime(LocalDateTime.now())
+                .build(),
+                HttpStatus.UNPROCESSABLE_ENTITY
+        );
+    }
+
+    @ExceptionHandler(ItsNotBelongException.class)
+    public ResponseEntity<ExceptionDetails> handlerNotFoundEx(ItsNotBelongException e) {
+        return new ResponseEntity<>(ExceptionDetails.builder()
+                .title("Unprocessable Entity.")
                 .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
                 .message(e.getMessage())
                 .localDateTime(LocalDateTime.now())
