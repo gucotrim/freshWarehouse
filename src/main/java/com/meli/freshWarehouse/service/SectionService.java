@@ -91,10 +91,4 @@ public class SectionService implements ISectionService {
         return sectionRepo.existsById(id);
     }
 
-    private boolean hasAvaliableSpace(Long id) {
-        Section section = this.getById(id);
-        Set<Batch> batchList = section.getListBatch();
-        Integer quantity = batchList
-    }
-
 }

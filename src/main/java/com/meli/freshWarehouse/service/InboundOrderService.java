@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -133,41 +135,6 @@ public class InboundOrderService implements IInboundOrderService {
         return section.getAvailableSpace() - quantity;
     }
 
-    private List<Batch> saveBatchList(InboundOrderDto inboundOrderDto, Order order) {
-        return batchRepo.saveAll(
-                inboundOrderDto.getBatchStockList().stream().map(b -> Batch.builder()
-                        .order(order)
-                        .section(order.getSection())
-                        .product(productService.getProductById(b.getProductId()))
-                        .currentQuantity(b.getCurrentQuantity())
-                        .currentTemperature(b.getCurrentTemperature())
-                        .initialQuantity(b.getInitialQuantity())
-                        .manufacturingDate(b.getManufacturingDate())
-                        .minimumTemperature(b.getMinimumTemperature())
-                        .dueDate(b.getDueDate())
-                        .manufacturingTime(b.getManufacturingTime())
-                        .build()).collect(Collectors.toList())
-        );
-    }
-
-    private InboundOrderResponseDto buildInboundOrderResponseDto(Order order, List<Batch> batchList) {
-        return InboundOrderResponseDto.builder()
-                .order(order)
-                .batchStockList(batchList.stream().map(b ->
-                        BatchResponseDto.builder()
-                                .id(b.getId())
-                                .currentTemperature(b.getCurrentTemperature())
-                                .minimumTemperature(b.getMinimumTemperature())
-                                .initialQuantity(b.getInitialQuantity())
-                                .currentQuantity(b.getCurrentQuantity())
-                                .manufacturingDate(b.getManufacturingDate())
-                                .manufacturingTime(b.getManufacturingTime())
-                                .dueDate(b.getDueDate())
-                                .build()
-                ).collect(Collectors.toList()))
-                .build();
-    }
-
     @Override
     public Order getInboundOrderById(Long inboundOrderId) {
         return orderRepo.findById(inboundOrderId).orElseThrow(() -> new InboundOrderNotFoundException("Inbound Order ID not found."));
@@ -177,14 +144,27 @@ public class InboundOrderService implements IInboundOrderService {
     public InboundOrderResponseDto update(Long id, InboundOrderDto inboundOrderDto) {
         Order order = this.getInboundOrderById(id);
         Representative representative = representativeService.findById(inboundOrderDto.getRepresentativeId());
-        Section section = sectionService.getById(inboundOrderDto.getSectionId());
-        order.setOrderDate(inboundOrderDto.getOrderDate());
+        Section section = sectionService.findById(inboundOrderDto.getSectionId());
+
+        orderIsValid(representative, section);
+
+        Integer quantityStock = validateAvailableSpace(section, inboundOrderDto);
+        List<Batch> batchList = getBatches(inboundOrderDto, section, order);
+        Set<Batch> batchSet = new HashSet<>(batchList);
+
+        order.setOrderDate(LocalDate.parse(inboundOrderDto.getOrderDate(),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         order.setRepresentative(representative);
         order.setSection(section);
+        order.setListBatch(batchSet);
 
-        List<Batch> batchList = saveBatchList(inboundOrderDto, order);
-        boolean exists = orderRepo.existsById(order.getId());
-        if (!exists) throw new InboundOrderNotFoundException("Inbound Order ID not found.");
-        return buildInboundOrderResponseDto(order, batchList);
+
+        section.setAvailableSpace(quantityStock);
+        sectionService.updateSection(section.getId(), SectionDto.builder()
+                .name(section.getName())
+                .availableSpace(section.getAvailableSpace())
+                .build());
+
+        return getInboundOrderResponse(order, batchList);
     }
 }
