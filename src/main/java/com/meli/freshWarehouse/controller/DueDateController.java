@@ -1,5 +1,6 @@
 package com.meli.freshWarehouse.controller;
 
+import com.meli.freshWarehouse.dto.DueDateDto;
 import com.meli.freshWarehouse.model.Batch;
 import com.meli.freshWarehouse.repository.IDueDateRepository;
 import com.meli.freshWarehouse.service.IDueDateService;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Tuple;
 import java.util.List;
 
 @RestController
@@ -18,7 +20,7 @@ public class DueDateController {
     private IDueDateRepository dueDateRepository;
 
     @GetMapping
-    public ResponseEntity<List<Batch>> getBatchesByExpiringDate(
+    public ResponseEntity<List<DueDateDto>> getBatchesByExpiringDate(
             @RequestParam(required = false) Long sectionId,
             @RequestParam(required = false) Integer amountOfDays,
             @RequestParam(required = false) String sectionName

@@ -1,5 +1,6 @@
 package com.meli.freshWarehouse.repository;
 
+import com.meli.freshWarehouse.dto.DueDateDto;
 import com.meli.freshWarehouse.model.Batch;
 import com.meli.freshWarehouse.model.Representative;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,17 +13,16 @@ import java.util.List;
 @Repository
 public interface IDueDateRepository extends JpaRepository<Representative, Long> {
 
-    @Query(value = "" +
-            "SELECT  b.id as batchNumber, p.id as productId, s.name as productTypeId, b.due_date as dueDate, b.initial_quantity as quantity  FROM batch b" +
-            "INNER JOIN product p on b.id_product = p.id" +
-            "INNER JOIN section s on b.id_section = s.id and p.id_section = s.id" +
-            "INNER JOIN warehouse w on s.id_warehouse = w.id" +
-            "INNER JOIN representative r on w.id = r.id_warehouse " +
+    @Query("SELECT new DueDateDto(b.id, p.id, s.name, b.dueDate, b.initialQuantity) FROM Batch b " +
+            "INNER JOIN Product p on b.product.id = p.id " +
+            "INNER JOIN Section s on b.section.id = s.id and p.section.id = s.id " +
+            "INNER JOIN Warehouse w on s.warehouse.id = w.id " +
+            "INNER JOIN Representative r on w.id = r.warehouse.id " +
             "WHERE s.id  = :sectionId " +
-            "AND b.due_date BETWEEN NOW() " +
-            "AND (DATE_ADD(NOW(), INTERVAL :amountOfDays DAY)) " +
-            "AND s.name = :sectionName" +
-            "ORDER BY b.due_date DESC", nativeQuery = true
+            "AND s.name = :sectionName " +
+            "ORDER BY b.dueDate DESC "
     )
-    List<Batch> getBatchesByExpiringDate(@Param("sectionId") Long sectionId, @Param("amountOfDays") Integer amountOfDays, @Param("sectionName") String sectionName);
+    List<DueDateDto> getBatchesByExpiringDate(@Param("sectionId") Long sectionId,
+                                              @Param("amountOfDays") Integer amountOfDays,
+                                              @Param("sectionName") String sectionName);
 }
