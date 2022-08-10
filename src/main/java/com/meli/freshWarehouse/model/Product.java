@@ -12,7 +12,7 @@ import javax.persistence.*;
 import java.util.Set;
 import javax.validation.constraints.*;
 
-@Data
+@Getter @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

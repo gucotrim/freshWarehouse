@@ -3,6 +3,7 @@ package com.meli.freshWarehouse.service;
 import com.meli.freshWarehouse.dto.SectionDto;
 import com.meli.freshWarehouse.exception.DataNotFoundException;
 import com.meli.freshWarehouse.exception.NotFoundException;
+import com.meli.freshWarehouse.model.Batch;
 import com.meli.freshWarehouse.model.Section;
 import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.repository.ISectionRepo;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service to implement Section

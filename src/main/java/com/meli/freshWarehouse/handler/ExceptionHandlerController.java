@@ -44,6 +44,19 @@ public class ExceptionHandlerController {
         );
 
     }
+    @ExceptionHandler({InboundOrderNotFoundException.class})
+    public ResponseEntity<ExceptionDetails> handlerNotFoundEx(InboundOrderNotFoundException ex) {
+
+        return new ResponseEntity<>(ExceptionDetails.builder()
+                .title("Inbound Order not found.")
+                .status(HttpStatus.NOT_FOUND.value())
+                .message(ex.getMessage())
+                .localDateTime(LocalDateTime.now())
+                .build(),
+                HttpStatus.NOT_FOUND
+        );
+
+    }
 
     @ExceptionHandler(FileNotFoundException.class)
     public ResponseEntity<ExceptionDetails> handlerNotFoundEx(FileNotFoundException ex) {
