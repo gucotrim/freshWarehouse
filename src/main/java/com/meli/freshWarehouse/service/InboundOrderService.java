@@ -4,7 +4,6 @@ import com.meli.freshWarehouse.dto.*;
 import com.meli.freshWarehouse.exception.ExceededStock;
 import com.meli.freshWarehouse.exception.ItsNotBelongException;
 import com.meli.freshWarehouse.model.*;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,7 +15,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-@Log4j2
 public class InboundOrderService implements IInboundOrderService {
 
     private final BatchService batchService;
@@ -106,9 +104,7 @@ public class InboundOrderService implements IInboundOrderService {
     }
 
     private void orderIsValid(Representative representative, Section section) {
-        if (representative.getWarehouse().getId().equals(section.getWarehouse().getId())) {
-            log.info("Representative is valid.");
-        } else {
+        if (!(representative.getWarehouse().getId().equals(section.getWarehouse().getId()))) {
             throw new ItsNotBelongException("Representative doesn't belong to the warehouse");
         }
     }
