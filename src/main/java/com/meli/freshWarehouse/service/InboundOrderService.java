@@ -2,11 +2,8 @@ package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.*;
 import com.meli.freshWarehouse.exception.ExceededStock;
-import com.meli.freshWarehouse.exception.InboundOrderNotFoundException;
 import com.meli.freshWarehouse.exception.ItsNotBelongException;
 import com.meli.freshWarehouse.model.*;
-import com.meli.freshWarehouse.repository.BatchRepo;
-import com.meli.freshWarehouse.repository.OrderRepo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -22,15 +19,15 @@ import java.util.stream.Collectors;
 @Log4j2
 public class InboundOrderService implements IInboundOrderService {
 
-    private final BatchRepo batchRepo;
-    private final OrderRepo orderRepo;
+    private final BatchService batchService;
+    private final OrderService orderService;
     private final RepresentativeService representativeService;
     private final SectionService sectionService;
     private final ProductService productService;
 
-    public InboundOrderService(BatchRepo batchRepo, OrderRepo orderRepo, RepresentativeService representativeService, SectionService sectionService, ProductService productService) {
-        this.batchRepo = batchRepo;
-        this.orderRepo = orderRepo;
+    public InboundOrderService(BatchService batchService, OrderService orderService, RepresentativeService representativeService, SectionService sectionService, ProductService productService) {
+        this.batchService = batchService;
+        this.orderService = orderService;
         this.representativeService = representativeService;
         this.sectionService = sectionService;
         this.productService = productService;
@@ -46,7 +43,7 @@ public class InboundOrderService implements IInboundOrderService {
 
         Integer quantityStock = validateAvailableSpace(section, inboundOrderDto);
 
-        Order order = orderRepo.save(Order.builder()
+        Order order = orderService.save(Order.builder()
                 .orderDate(LocalDate.parse(inboundOrderDto.getOrderDate(),
                         DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .representative(representative)
@@ -88,7 +85,7 @@ public class InboundOrderService implements IInboundOrderService {
     }
 
     private List<Batch> getBatches(InboundOrderDto inboundOrderDto, Section section, Order order) {
-        List<Batch> batchList = batchRepo.saveAll(
+        List<Batch> batchList = batchService.saveAll(
                 inboundOrderDto.getBatchStockList().stream().map(b -> Batch.builder()
                         .order(order)
                         .section(order.getSection())
@@ -137,7 +134,7 @@ public class InboundOrderService implements IInboundOrderService {
 
     @Override
     public Order getInboundOrderById(Long inboundOrderId) {
-        return orderRepo.findById(inboundOrderId).orElseThrow(() -> new InboundOrderNotFoundException("Inbound Order ID not found."));
+        return orderService.findById(inboundOrderId);
     }
 
     @Override
