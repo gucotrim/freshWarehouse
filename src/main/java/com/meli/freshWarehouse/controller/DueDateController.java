@@ -1,13 +1,12 @@
 package com.meli.freshWarehouse.controller;
 
 import com.meli.freshWarehouse.model.Batch;
+import com.meli.freshWarehouse.repository.IDueDateRepository;
 import com.meli.freshWarehouse.service.IDueDateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,11 +14,16 @@ import java.util.List;
 @RequestMapping("/api/v1/fresh-products/due-date")
 public class DueDateController {
 
-    private IDueDateService dueDateService;
+    @Autowired
+    private IDueDateRepository dueDateRepository;
 
     @GetMapping
-    public ResponseEntity<List<Batch>> getBatchesByExpiringDate(@PathVariable Long idRepresentative) {
-        return new ResponseEntity<>(dueDateService.getBatchesByExpiringDate(idRepresentative), HttpStatus.OK);
+    public ResponseEntity<List<Batch>> getBatchesByExpiringDate(
+            @RequestParam(required = false) Long sectionId,
+            @RequestParam(required = false) Integer amountOfDays,
+            @RequestParam(required = false) String sectionName
+    ) {
+        return new ResponseEntity<>(dueDateRepository.getBatchesByExpiringDate(sectionId, amountOfDays, sectionName), HttpStatus.OK);
     }
 
 }
