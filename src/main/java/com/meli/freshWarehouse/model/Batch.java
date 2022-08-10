@@ -32,15 +32,12 @@ public class Batch {
     @Column(name = "current_quantity")
     private Integer currentQuantity;
 
-    //@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "manufacturing_date")
     private LocalDate manufacturingDate;
 
-    //@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "manufacturing_time")
     private LocalDateTime manufacturingTime;
 
-    //@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss") TODO Voltar aqui
     @Column(name = "due_date")
     private LocalDate dueDate;
 

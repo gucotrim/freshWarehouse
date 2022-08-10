@@ -24,7 +24,7 @@ public class ExceptionHandlerValitation extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(
                 ExceptionDetailsValidation.builder()
                         .timestamp(LocalDateTime.now())
-                        .title("Campos inválidos")
+                        .title("Invalid fields")
                         .message(ex.getClass().getName())
                         .fields(errors.stream().map(
                                 FieldError::getField).collect(Collectors.joining("; ")))

@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "16c62557-581d-4f0b-b50d-54765e27d5e9",
+		"name": "InbounderOrder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Insert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"orderDate\": \"2022-08-09\",\n  \"sectionId\": 1,\n  \"representativeId\": 1,\n  \"batchStockList\": [\n    {\n      \"productId\": 2,\n      \"currentTemperature\": 23.0,\n      \"minimumTemperature\": 24.0,\n      \"initialQuantity\": 2,\n      \"currentQuantity\": 2,\n      \"manufacturingDate\": \"2022-05-24\",\n      \"manufacturingTime\": \"2022-06-03 14:24:54\",\n      \"dueDate\": \"2022-07-22\"\n    },\n    {\n      \"productId\": 3,\n      \"currentTemperature\": 24.0,\n      \"minimumTemperature\": 25.0,\n      \"initialQuantity\": 2,\n      \"currentQuantity\": 2,\n      \"manufacturingDate\": \"2021-05-24\",\n      \"manufacturingTime\": \"2021-06-03T14:24:54\",\n      \"dueDate\": \"2021-07-21\"\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/inboundorder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"inboundorder"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

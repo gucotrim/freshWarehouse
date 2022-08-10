@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
+/**
+ * Controller to access end-points inbound order.
+ */
 @RestController
 @RequestMapping("/api/v1/fresh-products/inboundorder")
 public class InboundOrderController {
@@ -24,8 +29,14 @@ public class InboundOrderController {
         this.inboundOrderService = inboundOrderService;
     }
 
+    /**
+     * Save a new inbound order
+     *
+     * @param inboundOrderDto
+     * @return saved inbound order
+     */
     @PostMapping
-    public ResponseEntity<InboundOrderResponseDto> save(@RequestBody InboundOrderDto inboundOrderDto) {
+    public ResponseEntity<InboundOrderResponseDto> save(@RequestBody @Valid InboundOrderDto inboundOrderDto) {
         return new ResponseEntity<>(inboundOrderService.save(inboundOrderDto), HttpStatus.CREATED);
     }
 

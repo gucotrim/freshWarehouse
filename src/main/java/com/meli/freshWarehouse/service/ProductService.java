@@ -1,15 +1,11 @@
 package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.ProductDTO;
-import com.meli.freshWarehouse.exception.InvalidProductParam;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.model.Product;
 import com.meli.freshWarehouse.model.Section;
 import com.meli.freshWarehouse.model.Seller;
-import com.meli.freshWarehouse.repository.ISectionRepo;
-import com.meli.freshWarehouse.repository.ISellerRepo;
 import com.meli.freshWarehouse.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +26,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Product createProduct(ProductDTO productDto) {
-        Section section = sectionService.getById(productDto.getSellerId());
+        Section section = sectionService.findById(productDto.getSellerId());
         Seller seller = sellerService.getSellerById(productDto.getSellerId());
         return productRepository.save(Product.builder()
                 .name(productDto.getName())
@@ -54,7 +50,7 @@ public class ProductService implements IProductService {
     @Override
     public Product update(Long id, ProductDTO productDto) {
         Product product = this.getProductById(id);
-        Section section = sectionService.getById(productDto.getSellerId());
+        Section section = sectionService.findById(productDto.getSellerId());
         Seller seller = sellerService.getSellerById(productDto.getSellerId());
 
         product.setName(productDto.getName());

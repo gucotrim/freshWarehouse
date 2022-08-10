@@ -4,7 +4,6 @@ import com.meli.freshWarehouse.dto.WarehouseDTO;
 import com.meli.freshWarehouse.exception.WarehouseNotFoundException;
 import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.repository.WarehouseRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +28,8 @@ public class WarehouseService implements IWarehouseService {
 
     @Override
     public Warehouse getWarehouseById(Long warehouseId) {
-        return warehouseRepo.findById(warehouseId).orElseThrow(() -> new WarehouseNotFoundException("Warehouse ID not found."));
+        return warehouseRepo.findById(warehouseId).orElseThrow(() ->
+                new WarehouseNotFoundException("Warehouse ID not found."));
     }
 
     @Override

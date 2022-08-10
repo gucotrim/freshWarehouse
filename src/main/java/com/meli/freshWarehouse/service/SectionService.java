@@ -53,7 +53,7 @@ public class SectionService implements ISectionService {
     }
 
     @Override
-    public Section getById(Long id) {
+    public Section findById(Long id) {
 
         return sectionRepo.findById(id)
                 .orElseThrow(() -> new NotFoundException(
@@ -64,8 +64,8 @@ public class SectionService implements ISectionService {
     @Override
     public Section updateSection(Long id, SectionDto section) {
 
-        Section existsSection = this.getById(id);
-        Warehouse findWarehouse = warehouseService.getWarehouseById(section.getIdWarehouse());
+        Section existsSection = this.findById(id);
+        Warehouse findWarehouse = warehouseService.getWarehouseById(existsSection.getWarehouse().getId());
 
         existsSection.setName(section.getName());
         existsSection.setAvailableSpace(section.getAvailableSpace());
