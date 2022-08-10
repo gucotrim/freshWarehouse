@@ -10,8 +10,10 @@ public class GenerateRepresentative {
         return Representative.builder()
                 .name("Name Representative Test")
                 .warehouse(GenerateWarehouse.validWarehouse1())
+                .listOrder(GenerateOrder.validOrderLit())
                 .build();
     }
+
 
     public static RepresentativeDTO newRepresentativeDto1() {
         return RepresentativeDTO.builder()
@@ -21,18 +23,13 @@ public class GenerateRepresentative {
     }
 
 
-    public static Representative newRepresentative2() {
-        return Representative.builder()
-                .name("Name Representative2 Test")
-                .warehouse(GenerateWarehouse.validWarehouse2())
-                .build();
-    }
-
-
     public static Representative validRepresentative1() {
+
         return Representative.builder()
                 .id(1L)
                 .name("Name Representative Test")
+                .warehouse(GenerateWarehouse.validWarehouse1())
+                .listOrder(GenerateOrder.validOrderLit())
                 .build();
     }
 

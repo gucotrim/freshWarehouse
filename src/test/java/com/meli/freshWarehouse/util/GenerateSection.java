@@ -26,6 +26,7 @@ public class GenerateSection {
 
     public static final Section validSection1() {
         return Section.builder()
+                .id(1L)
                 .name("Section test 1")
                 .availableSpace(23)
                 .warehouse(GenerateWarehouse.validWarehouse1())
@@ -34,6 +35,7 @@ public class GenerateSection {
 
     public static final Section validSection2() {
         return Section.builder()
+                .id(2L)
                 .name("Section test 2")
                 .availableSpace(25)
                 .warehouse(GenerateWarehouse.validWarehouse2())

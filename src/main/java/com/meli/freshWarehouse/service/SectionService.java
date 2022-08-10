@@ -31,7 +31,8 @@ public class SectionService implements ISectionService {
     @Override
     public Section save(SectionDto newSection) {
 
-        Warehouse findWarehouse = warehouseService.getWarehouseById(newSection.getIdWarehouse());
+        Warehouse findWarehouse = warehouseService
+                .getWarehouseById(newSection.getIdWarehouse());
 
         return sectionRepo.save(Section.builder()
                         .name(newSection.getName())
