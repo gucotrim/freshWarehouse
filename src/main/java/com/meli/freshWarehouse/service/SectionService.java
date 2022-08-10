@@ -1,9 +1,11 @@
 package com.meli.freshWarehouse.service;
 
+import com.meli.freshWarehouse.dto.BatchListProductResponseDto;
 import com.meli.freshWarehouse.dto.SectionDto;
 import com.meli.freshWarehouse.exception.DataNotFoundException;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.model.Batch;
+import com.meli.freshWarehouse.model.Product;
 import com.meli.freshWarehouse.model.Section;
 import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.repository.ISectionRepo;
@@ -13,6 +15,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Service to implement Section
