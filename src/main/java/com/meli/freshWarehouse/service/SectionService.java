@@ -3,16 +3,15 @@ package com.meli.freshWarehouse.service;
 import com.meli.freshWarehouse.dto.SectionDto;
 import com.meli.freshWarehouse.exception.DataNotFoundException;
 import com.meli.freshWarehouse.exception.NotFoundException;
-import com.meli.freshWarehouse.model.Batch;
 import com.meli.freshWarehouse.model.Section;
 import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.repository.ISectionRepo;
+import com.meli.freshWarehouse.repository.WarehouseRepo;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * Service to implement Section
@@ -23,9 +22,12 @@ public class SectionService implements ISectionService {
     private final ISectionRepo sectionRepo;
     private final IWarehouseService warehouseService;
 
-    public SectionService(ISectionRepo sectionRepo, IWarehouseService warehouseRepo) {
+    private final WarehouseRepo warehouseRepo;
+
+    public SectionService(ISectionRepo sectionRepo, IWarehouseService warehouseService, WarehouseRepo warehouseRepo1) {
         this.sectionRepo = sectionRepo;
-        this.warehouseService = warehouseRepo;
+        this.warehouseService = warehouseService;
+        this.warehouseRepo = warehouseRepo1;
     }
 
     @Override
