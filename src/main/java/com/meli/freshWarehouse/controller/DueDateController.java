@@ -1,8 +1,7 @@
 package com.meli.freshWarehouse.controller;
 
+import com.meli.freshWarehouse.dto.DueDateResponseDto;
 import com.meli.freshWarehouse.model.Batch;
-import com.meli.freshWarehouse.repository.BatchRepo;
-import com.meli.freshWarehouse.repository.ISectionRepo;
 import com.meli.freshWarehouse.service.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,14 +19,14 @@ public class DueDateController {
     private BatchService batchService;
 
     @GetMapping
-    public ResponseEntity<List<Batch>> getBatchesByExpiringDate(
+    public ResponseEntity<List<DueDateResponseDto>> getBatchesByExpiringDate(
             @RequestParam Long sectionId,
             @RequestParam(required = false) Integer amountOfDays) {
         return new ResponseEntity<>(batchService.getBySectionAndDueDate(sectionId, amountOfDays), HttpStatus.OK);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<Batch>> getBatchesByExpiringDateAndSectionName(
+    public ResponseEntity<List<DueDateResponseDto>> getBatchesByExpiringDateAndSectionName(
             @RequestParam String sectionName,
             @RequestParam(required = false) Integer amountOfDays) {
         return new ResponseEntity<>(batchService.getBySectionAndDueDate(sectionName, amountOfDays), HttpStatus.OK);
