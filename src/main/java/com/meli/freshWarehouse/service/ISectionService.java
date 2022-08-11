@@ -4,6 +4,7 @@ import com.meli.freshWarehouse.dto.SectionDto;
 import com.meli.freshWarehouse.model.Section;
 
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -21,4 +22,6 @@ public interface ISectionService {
     void deleteSectionById(Long id);
 
     boolean existById(Long id);
+
+    Set<Section> findAllById(Set<Long> sectionsId);
 }

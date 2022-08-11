@@ -38,9 +38,20 @@ public class Section {
     @JsonIgnore
     private Set<Order> listOrder;
 
-    @OneToMany(mappedBy = "section")
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+    )
+    @JoinTable(
+            name = "section_product",
+            joinColumns = @JoinColumn(name = "id_section"),
+            inverseJoinColumns = @JoinColumn(name = "id_product")
+    )
     @JsonIgnore
-    private Set<Product> listProduct;
+    private Set<Product> products;
 
     @OneToMany(mappedBy = "section")
     @JsonIgnore
