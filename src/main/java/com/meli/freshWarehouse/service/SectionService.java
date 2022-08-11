@@ -1,11 +1,7 @@
 package com.meli.freshWarehouse.service;
 
-import com.meli.freshWarehouse.dto.BatchListProductResponseDto;
 import com.meli.freshWarehouse.dto.SectionDto;
-import com.meli.freshWarehouse.exception.DataNotFoundException;
-import com.meli.freshWarehouse.exception.NotFoundException;
-import com.meli.freshWarehouse.model.Batch;
-import com.meli.freshWarehouse.model.Product;
+import com.meli.freshWarehouse.exception.SectionNotFoundException;
 import com.meli.freshWarehouse.model.Section;
 import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.repository.ISectionRepo;
@@ -16,7 +12,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Service to implement Section
@@ -27,15 +22,17 @@ public class SectionService implements ISectionService {
     private final ISectionRepo sectionRepo;
     private final IWarehouseService warehouseService;
 
-    public SectionService(ISectionRepo sectionRepo, IWarehouseService warehouseRepo) {
+
+    public SectionService(ISectionRepo sectionRepo, IWarehouseService warehouseService) {
         this.sectionRepo = sectionRepo;
-        this.warehouseService = warehouseRepo;
+        this.warehouseService = warehouseService;
     }
 
     @Override
     public Section save(SectionDto newSection) {
 
-        Warehouse findWarehouse = warehouseService.getWarehouseById(newSection.getIdWarehouse());
+        Warehouse findWarehouse = warehouseService
+                .getWarehouseById(newSection.getIdWarehouse());
 
         return sectionRepo.save(Section.builder()
                         .name(newSection.getName())
@@ -47,20 +44,14 @@ public class SectionService implements ISectionService {
 
     @Transactional
     public List<Section> getAllSection() {
-
-        try {
-            return sectionRepo.findAll();
-        } catch (NotFoundException e) {
-            throw new DataNotFoundException("Data not found.");
-        }
-
+       return sectionRepo.findAll();
     }
 
     @Override
     public Section findById(Long id) {
 
         return sectionRepo.findById(id)
-                .orElseThrow(() -> new NotFoundException(
+                .orElseThrow(() -> new SectionNotFoundException(
                         "Section not found by id: " + id
                 ));
     }
@@ -84,7 +75,7 @@ public class SectionService implements ISectionService {
 
         Optional<Section> sectionFound = sectionRepo.findById(id);
         if (sectionFound.isEmpty()) {
-            throw new DataNotFoundException("Id not found");
+            throw new SectionNotFoundException("Section not found by id: " + id);
         }
         sectionRepo.deleteById(id);
 

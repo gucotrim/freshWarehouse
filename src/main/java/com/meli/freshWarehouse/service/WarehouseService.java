@@ -13,6 +13,7 @@ import java.util.List;
 public class WarehouseService implements IWarehouseService {
 
     private final WarehouseRepo warehouseRepo;
+
     public WarehouseService(WarehouseRepo warehouseRepo) {
         this.warehouseRepo = warehouseRepo;
     }
@@ -36,9 +37,10 @@ public class WarehouseService implements IWarehouseService {
     @Override
     public Warehouse updateWarehouse(Warehouse updateWarehouse) {
         boolean exists = warehouseRepo.existsById(updateWarehouse.getId());
-        if(!exists) throw new WarehouseNotFoundException("Warehouse ID not found.");
-        return warehouseRepo.save(updateWarehouse);
-
+        if (exists) {
+            return warehouseRepo.save(updateWarehouse);
+        }
+        throw new WarehouseNotFoundException("Warehouse ID not found.");
     }
 
     @Override
