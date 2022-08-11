@@ -53,9 +53,11 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Transactional
     public Product update(Long id, ProductDTO productDto) {
         Product product = this.getProductById(id);
         Set<Section> sections = sectionService.findAllById(productDto.getSectionsId());
+        sections.forEach(s -> {s.getProducts().add(product);});
         Seller seller = sellerService.getSellerById(productDto.getSellerId());
 
         product.setName(productDto.getName());
