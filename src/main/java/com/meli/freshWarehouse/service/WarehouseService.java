@@ -1,5 +1,6 @@
 package com.meli.freshWarehouse.service;
 
+import com.meli.freshWarehouse.dto.ProductStockResponseDTO;
 import com.meli.freshWarehouse.dto.WarehouseDTO;
 import com.meli.freshWarehouse.exception.WarehouseNotFoundException;
 import com.meli.freshWarehouse.model.Warehouse;
@@ -38,6 +39,13 @@ public class WarehouseService implements IWarehouseService {
         if(!exists) throw new WarehouseNotFoundException("Warehouse ID not found.");
         return warehouseRepo.save(updateWarehouse);
 
+    }
+
+    @Override
+    public ProductStockResponseDTO getStockOfProductById(Long productId) {
+
+
+        return ProductStockResponseDTO.builder().build();
     }
 
 }

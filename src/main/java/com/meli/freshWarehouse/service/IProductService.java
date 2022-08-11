@@ -6,6 +6,7 @@ import com.meli.freshWarehouse.model.Product;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 public interface IProductService {
     Product createProduct(@Valid ProductDTO product);
