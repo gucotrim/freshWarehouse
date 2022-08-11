@@ -36,14 +36,20 @@ public class Product {
     @JoinColumn(name = "id_seller", nullable = false)
     private Seller seller;
 
-    @ManyToOne
-    @JoinColumn(name = "id_section", nullable = false)
-    private Section section;
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }
+            ,mappedBy = "products"
+    )
+    private Set<Section> sections;
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private Set<Batch> listBatch;
 
-    public Product(String name, Double price, Long sellerId, Long sectionId) {
+    public Product(String name, Double price, Long sellerId, Set<Long> sections) {
     }
 }

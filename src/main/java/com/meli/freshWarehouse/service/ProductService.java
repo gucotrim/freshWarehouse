@@ -7,9 +7,11 @@ import com.meli.freshWarehouse.model.Section;
 import com.meli.freshWarehouse.model.Seller;
 import com.meli.freshWarehouse.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ProductService implements IProductService {
@@ -25,15 +27,18 @@ public class ProductService implements IProductService {
 
 
     @Override
+    @Transactional
     public Product createProduct(ProductDTO productDto) {
-        Section section = sectionService.findById(productDto.getSellerId());
+        Set<Section> sections = sectionService.findAllById(productDto.getSectionsId());
         Seller seller = sellerService.getSellerById(productDto.getSellerId());
-        return productRepository.save(Product.builder()
+        Product product = Product.builder()
                 .name(productDto.getName())
-                .section(section)
+                .sections(sections)
                 .seller(seller)
                 .price(productDto.getPrice())
-                .build());
+                .build();
+        sections.forEach(s -> {s.getProducts().add(product);});
+        return productRepository.save(product);
     }
 
     @Override
@@ -50,11 +55,11 @@ public class ProductService implements IProductService {
     @Override
     public Product update(Long id, ProductDTO productDto) {
         Product product = this.getProductById(id);
-        Section section = sectionService.findById(productDto.getSellerId());
+        Set<Section> sections = sectionService.findAllById(productDto.getSectionsId());
         Seller seller = sellerService.getSellerById(productDto.getSellerId());
 
         product.setName(productDto.getName());
-        product.setSection(section);
+        product.setSections(sections);
         product.setSeller(seller);
         product.setPrice(product.getPrice());
         return productRepository.save(product);
@@ -77,6 +82,11 @@ public class ProductService implements IProductService {
 
     @Override
     public boolean isFromSection(Long sectionId, Product product) {
-        return product.getSection().getId() == sectionId;
+        for (Section section : product.getSections()) {
+            if(section.getId().equals(sectionId)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

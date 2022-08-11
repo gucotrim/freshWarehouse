@@ -110,7 +110,8 @@ public class InboundOrderService implements IInboundOrderService {
     }
 
     private Product validateProduct(Product product, Section section) {
-        if (product.getSection().getId().equals(section.getId())) {
+        //verificar mudanca
+        if (product.getSections().contains(section)) {
             return product;
         } else {
             throw new ItsNotBelongException("Product doesn't belong to the section");

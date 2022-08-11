@@ -10,6 +10,7 @@ import com.meli.freshWarehouse.repository.ISectionRepo;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -89,6 +90,12 @@ public class SectionService implements ISectionService {
     @Override
     public boolean existById(Long id){
         return sectionRepo.existsById(id);
+    }
+
+    @Override
+    public Set<Section> findAllById(Set<Long> sectionsId) {
+        Set<Section> sections = new HashSet<>(sectionRepo.findAllById(sectionsId));
+        return sections;
     }
 
 }

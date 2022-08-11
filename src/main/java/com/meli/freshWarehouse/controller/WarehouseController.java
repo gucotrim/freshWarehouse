@@ -1,8 +1,10 @@
 package com.meli.freshWarehouse.controller;
 
+import com.meli.freshWarehouse.dto.ProductStockResponseDTO;
 import com.meli.freshWarehouse.dto.WarehouseDTO;
 
 
+import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.exception.WarehouseNotFoundException;
 import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.service.WarehouseService;
@@ -62,5 +64,17 @@ public class WarehouseController {
     @PutMapping
     public ResponseEntity <Warehouse> updateWarehouse(@RequestBody @Valid Warehouse warehouse) {
        return ResponseEntity.status(HttpStatus.OK).body(warehouseService.updateWarehouse(warehouse));
+    }
+
+    /**
+     * Gets the stock of a product in all warehouses
+     *
+     * @return the total amount of products per warehouse. If the product does not exist in any deposit, you must return a "404 Not Found".
+     * @throws NotFoundException When a warehouse ID isn't found.
+     * @see <a href="http://localhost:8080/api/v1/fresh-products/warehouse/product-quantity/{productId}">Gets the stock of a product in all warehouses by product ID</a>
+     */
+    @GetMapping("/product-quantity/{productId}")
+    public ResponseEntity<ProductStockResponseDTO> getStockOfProductById(@PathVariable Long productId) {
+        return ResponseEntity.status(HttpStatus.OK).body(warehouseService.getStockOfProductById(productId));
     }
 }
