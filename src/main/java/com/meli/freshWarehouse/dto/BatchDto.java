@@ -1,5 +1,6 @@
 package com.meli.freshWarehouse.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
+@Builder
 public class BatchDto {
 
     @Positive

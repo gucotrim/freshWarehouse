@@ -1,11 +1,13 @@
 package com.meli.freshWarehouse.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.*;
 
 @Getter @Setter
+@Builder
 public class RepresentativeDTO {
     @NotBlank(message = "Representative name cannot be blank.")
     @Pattern(regexp = "^[A-Z][a-z]*(?: [A-Z][a-z]*)*$", message = "The representative's name must begin with a capital letter.")
