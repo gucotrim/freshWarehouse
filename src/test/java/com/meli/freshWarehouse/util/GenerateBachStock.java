@@ -52,7 +52,7 @@ public class GenerateBachStock {
                 .currentTemperature(14F)
                 .initialQuantity(2)
                 .currentQuantity(2)
-                .manufacturingDate(LocalDate.parse("2021-06-03T14:24:54"))
+                .manufacturingDate(LocalDate.from(LocalDateTime.parse("2021-06-03 14:24:54")))
                 .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
                 .dueDate(LocalDate.parse("2021-07-24"))
                 .order(GenerateOrder.validOrder1())

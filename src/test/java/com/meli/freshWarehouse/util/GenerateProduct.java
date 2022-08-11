@@ -1,5 +1,6 @@
 package com.meli.freshWarehouse.util;
 
+import com.meli.freshWarehouse.dto.ProductDTO;
 import com.meli.freshWarehouse.model.Product;
 
 public class GenerateProduct {
@@ -14,6 +15,16 @@ public class GenerateProduct {
                 .listBatch(GenerateBachStock.validBatchResponse())
                 .build();
 
+    }
+
+    public final static ProductDTO newProductDto1() {
+
+        return ProductDTO.builder()
+                .name("Toddy")
+                .price(10.0)
+                .sectionId(1L)
+                .sellerId(1L)
+                .build();
     }
 
     public final static Product newProduct2() {
