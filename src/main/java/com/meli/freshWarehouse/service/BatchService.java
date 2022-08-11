@@ -42,8 +42,22 @@ public class BatchService implements IBatchService {
     @Override
     public List<DueDateResponseDto> getBySectionAndDueDate(String sectionName, Integer amountOfDays) {
         List<DueDateResponseDto> batchList = new ArrayList<>();
-        List<Section> sectionList = iSectionRepo.findByName(sectionName);
-        sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
-        return batchList;
+        List<Section> sectionList = new ArrayList<>();
+        switch (sectionName) {
+            case "FS":
+                sectionList = iSectionRepo.findByName("Fresh");
+                sectionList = iSectionRepo.findByName("Fresh");sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
+                return batchList;
+            case "RF":
+                sectionList = iSectionRepo.findByName("Refrigerated");
+                sectionList = iSectionRepo.findByName("Fresh");sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
+                return batchList;
+            case "FF":
+                sectionList = iSectionRepo.findByName("Frozen");
+                sectionList = iSectionRepo.findByName("Fresh");sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
+                return batchList;
+            default:
+                throw new RuntimeException("The section options are: FS, RF or FF");
+        }
     }
 }
