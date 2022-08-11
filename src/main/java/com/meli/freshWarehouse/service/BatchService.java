@@ -46,15 +46,15 @@ public class BatchService implements IBatchService {
         switch (sectionName) {
             case "FS":
                 sectionList = iSectionRepo.findByName("Fresh");
-                sectionList = iSectionRepo.findByName("Fresh");sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
+                sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
                 return batchList;
             case "RF":
                 sectionList = iSectionRepo.findByName("Refrigerated");
-                sectionList = iSectionRepo.findByName("Fresh");sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
+                sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
                 return batchList;
             case "FF":
                 sectionList = iSectionRepo.findByName("Frozen");
-                sectionList = iSectionRepo.findByName("Fresh");sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
+                sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
                 return batchList;
             default:
                 throw new RuntimeException("The section options are: FS, RF or FF");
