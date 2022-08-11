@@ -10,7 +10,6 @@ public class GenerateRepresentative {
         return Representative.builder()
                 .name("Name Representative Test")
                 .warehouse(GenerateWarehouse.validWarehouse1())
-                .listOrder(GenerateOrder.validOrderLit())
                 .build();
     }
 
@@ -29,7 +28,6 @@ public class GenerateRepresentative {
                 .id(1L)
                 .name("Name Representative Test")
                 .warehouse(GenerateWarehouse.validWarehouse1())
-                .listOrder(GenerateOrder.validOrderLit())
                 .build();
     }
 
