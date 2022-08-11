@@ -34,7 +34,6 @@ public class ProductService implements IProductService {
     @Override
     @Transactional
     public Product createProduct(ProductDTO productDto) {
-        Section section = sectionService.findById(productDto.getSectionId());
         Set<Section> sections = sectionService.findAllById(productDto.getSectionsId());
         Seller seller = sellerService.getSellerById(productDto.getSellerId());
         Product product = Product.builder()
@@ -124,7 +123,7 @@ public class ProductService implements IProductService {
     }
 
     private void validateSectionWithProduct(Product product, Section section) {
-        if (!product.getSection().getId().equals(section.getId())){
+        if (!isFromSection(section.getId(), product)){ //negado
             throw new ItsNotBelongException("Product doesn't belong to the section id: " + section.getId());
         }
     }
