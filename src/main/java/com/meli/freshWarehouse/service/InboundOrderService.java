@@ -5,6 +5,7 @@ import com.meli.freshWarehouse.exception.ExceededStock;
 import com.meli.freshWarehouse.exception.ItsNotBelongException;
 import com.meli.freshWarehouse.model.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,6 +33,7 @@ public class InboundOrderService implements IInboundOrderService {
     }
 
     @Override
+    @Transactional
     public InboundOrderResponseDto save(InboundOrderDto inboundOrderDto) {
 
         Representative representative = representativeService.findById(inboundOrderDto.getRepresentativeId());
@@ -48,7 +50,7 @@ public class InboundOrderService implements IInboundOrderService {
                 .section(section)
                 .build());
 
-        List<Batch> batchList = getBatches(inboundOrderDto, section, order);
+        List<Batch> batchListSaved = saveBatches(inboundOrderDto, section, order);
 
         section.setAvailableSpace(quantityStock);
         sectionService.updateSection(section.getId(), SectionDto.builder()
@@ -56,7 +58,7 @@ public class InboundOrderService implements IInboundOrderService {
                 .availableSpace(section.getAvailableSpace())
                 .build());
 
-        return getInboundOrderResponse(order, batchList);
+        return getInboundOrderResponse(order, batchListSaved);
     }
 
 
@@ -82,7 +84,7 @@ public class InboundOrderService implements IInboundOrderService {
                 .build();
     }
 
-    private List<Batch> getBatches(InboundOrderDto inboundOrderDto, Section section, Order order) {
+    private List<Batch> saveBatches(InboundOrderDto inboundOrderDto, Section section, Order order) {
         List<Batch> batchList = batchService.saveAll(
                 inboundOrderDto.getBatchStockList().stream().map(b -> Batch.builder()
                         .order(order)
@@ -143,7 +145,7 @@ public class InboundOrderService implements IInboundOrderService {
         orderIsValid(representative, section);
 
         Integer quantityStock = validateAvailableSpace(section, inboundOrderDto);
-        List<Batch> batchList = getBatches(inboundOrderDto, section, order);
+        List<Batch> batchList = saveBatches(inboundOrderDto, section, order);
         Set<Batch> batchSet = new HashSet<>(batchList);
 
         order.setOrderDate(LocalDate.parse(inboundOrderDto.getOrderDate(),

@@ -15,17 +15,15 @@ public class GenerateOrder {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")))));
         order.setRepresentative(GenerateRepresentative.validRepresentative1());
         order.setSection(GenerateSection.validSection1());
-        order.setListBatch(GenerateBachStock.validBatchResponse());
         return order;
     }
 
     public static final Order newOrder2() {
         Order order = new Order();
-        order.setOrderDate(LocalDate.parse(String.valueOf(LocalDate.parse("2022-18-09",
+        order.setOrderDate(LocalDate.parse(String.valueOf(LocalDate.parse("2022-08-09",
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")))));
         order.setRepresentative(GenerateRepresentative.validRepresentative2());
         order.setSection(GenerateSection.validSection2());
-        order.setListBatch(GenerateBachStock.validBatchResponse());
         return order;
     }
 
@@ -36,7 +34,6 @@ public class GenerateOrder {
         order.setOrderDate(LocalDate.parse("2022-08-09"));
         order.setRepresentative(GenerateRepresentative.validRepresentative1());
         order.setSection(GenerateSection.validSection1());
-        order.setListBatch(GenerateBachStock.validBatchResponse());
         return order;
     }
 
@@ -44,11 +41,10 @@ public class GenerateOrder {
         Order order = new Order();
 
         order.setId(2L);
-        order.setOrderDate(LocalDate.parse(String.valueOf(LocalDate.parse("2022-18-09",
+        order.setOrderDate(LocalDate.parse(String.valueOf(LocalDate.parse("2022-08-09",
                 DateTimeFormatter.ofPattern("yyyy-MM-dd")))));
         order.setRepresentative(GenerateRepresentative.validRepresentative2());
         order.setSection(GenerateSection.validSection2());
-        order.setListBatch(GenerateBachStock.validBatchResponse());
         return order;
     }
 

@@ -3,12 +3,18 @@ package com.meli.freshWarehouse.dto;
 import com.meli.freshWarehouse.model.Product;
 import com.meli.freshWarehouse.model.Section;
 import com.meli.freshWarehouse.model.Seller;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+import net.bytebuddy.asm.Advice;
 
 import javax.validation.constraints.*;
 import java.util.Set;
 
-@Getter
+@Getter @Setter
+@Builder
+@AllArgsConstructor
 public class ProductDTO {
 
     @NotBlank(message = "Product name cannot be blank.")

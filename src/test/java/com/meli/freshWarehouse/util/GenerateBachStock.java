@@ -6,7 +6,6 @@ import com.meli.freshWarehouse.model.Batch;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,8 +33,8 @@ public class GenerateBachStock {
                 .currentTemperature(18F)
                 .initialQuantity(4)
                 .currentQuantity(5)
-                .manufacturingDate(LocalDate.parse("2021-16-03T14:24:54"))
-                .manufacturingTime(LocalDateTime.parse("2021-16-03T14:24:54"))
+                .manufacturingDate(LocalDate.parse("2021-06-03"))
+                .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
                 .dueDate(LocalDate.parse("2021-05-12"))
                 .build();
 
@@ -52,7 +51,7 @@ public class GenerateBachStock {
                 .currentTemperature(14F)
                 .initialQuantity(2)
                 .currentQuantity(2)
-                .manufacturingDate(LocalDate.parse("2021-06-03T14:24:54"))
+                .manufacturingDate(LocalDate.parse("2021-06-03"))
                 .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
                 .dueDate(LocalDate.parse("2021-07-24"))
                 .order(GenerateOrder.validOrder1())
@@ -66,8 +65,8 @@ public class GenerateBachStock {
                 .currentTemperature(18F)
                 .initialQuantity(4)
                 .currentQuantity(5)
-                .manufacturingDate(LocalDate.parse("2021-16-03T14:24:54"))
-                .manufacturingTime(LocalDateTime.parse("2021-16-03T14:24:54"))
+                .manufacturingDate(LocalDate.parse("2021-06-03"))
+                .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
                 .dueDate(LocalDate.parse("2021-05-12"))
                 .order(GenerateOrder.validOrder2())
                 .section(GenerateSection.validSection2())
@@ -93,7 +92,7 @@ public class GenerateBachStock {
                 .currentTemperature(14F)
                 .initialQuantity(2)
                 .currentQuantity(2)
-                .manufacturingDate(LocalDate.parse("2021-06-03T14:24:54"))
+                .manufacturingDate(LocalDate.parse("2021-06-03"))
                 .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
                 .dueDate(LocalDate.parse("2021-07-24"))
                 .build();
@@ -105,8 +104,8 @@ public class GenerateBachStock {
                 .currentTemperature(18F)
                 .initialQuantity(4)
                 .currentQuantity(5)
-                .manufacturingDate(LocalDate.parse("2021-16-03T14:24:54"))
-                .manufacturingTime(LocalDateTime.parse("2021-16-03T14:24:54"))
+                .manufacturingDate(LocalDate.parse("2021-06-03"))
+                .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
                 .dueDate(LocalDate.parse("2021-05-12"))
                 .build();
 
@@ -139,8 +138,8 @@ public class GenerateBachStock {
                 .currentTemperature(18F)
                 .initialQuantity(4)
                 .currentQuantity(5)
-                .manufacturingDate("2021-16-03T14:24:54")
-                .manufacturingTime("2021-16-03T14:24:54")
+                .manufacturingDate("2021-06-03T14:24:54")
+                .manufacturingTime("2021-06-03T14:24:54")
                 .dueDate("2021-05-12")
                 .build();
 

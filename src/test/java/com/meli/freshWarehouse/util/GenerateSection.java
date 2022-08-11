@@ -3,6 +3,9 @@ package com.meli.freshWarehouse.util;
 import com.meli.freshWarehouse.dto.SectionDto;
 import com.meli.freshWarehouse.model.Section;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class GenerateSection {
     public static final SectionDto newSection1() {
 
@@ -50,6 +53,15 @@ public class GenerateSection {
                 .warehouse(GenerateWarehouse.validWarehouse2())
                 .build();
     }
+
+    public static final Set<Section> validSectionList() {
+        Set<Section> sectionSet = new HashSet<>();
+        sectionSet.add(GenerateSection.validSection1());
+        sectionSet.add(GenerateSection.validSection2());
+
+        return sectionSet;
+    }
+
 
 
 }
