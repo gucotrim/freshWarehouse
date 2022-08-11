@@ -5,12 +5,14 @@ import com.meli.freshWarehouse.dto.WarehouseDTO;
 import com.meli.freshWarehouse.dto.WarehouseForProductStockResponseDTO;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.exception.WarehouseNotFoundException;
+import com.meli.freshWarehouse.model.Product;
 import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.repository.BatchRepo;
 import com.meli.freshWarehouse.repository.WarehouseRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WarehouseService implements IWarehouseService {
@@ -49,14 +51,20 @@ public class WarehouseService implements IWarehouseService {
     @Override
     public ProductStockResponseDTO getStockOfProductById(Long productId) {
         List<WarehouseForProductStockResponseDTO> warehouses = batchRepo.getStockOfProductById(productId);
-        if(warehouses.stream()
-                .reduce(0L, (subTotal, warehouse) -> subTotal + warehouse.getTotalQuantity(), Long::sum) == 0) {
+        ProductStockResponseDTO productStockResponseDTO = ProductStockResponseDTO.builder()
+                .productId(productId)
+                .warehouses(
+                        warehouses.stream()
+                                .filter(w -> w.getTotalQuantity() != 0)
+                                .collect(Collectors.toList())
+                )
+                .build();
+
+        if(productStockResponseDTO.getWarehouses().isEmpty()) {
             throw new NotFoundException("Product not available in stock.");
         }
-        return ProductStockResponseDTO.builder()
-                .productId(productId)
-                .warehouses(warehouses)
-                .build();
+
+        return productStockResponseDTO;
     }
 
 }
