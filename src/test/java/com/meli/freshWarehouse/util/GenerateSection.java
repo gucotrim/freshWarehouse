@@ -42,5 +42,14 @@ public class GenerateSection {
                 .build();
     }
 
+    public static final Section updatedSection() {
+        return Section.builder()
+                .id(1L)
+                .name("New section")
+                .availableSpace(33)
+                .warehouse(GenerateWarehouse.validWarehouse2())
+                .build();
+    }
+
 
 }

@@ -63,6 +63,7 @@ class WarehouseServiceTest {
         verify(warehouseRepo, Mockito.times(1)).findAll();
     }
 
+
     @Test
     void getWarehouseById_When_IdIsValid() {
         BDDMockito.when(warehouseRepo.findById(ArgumentMatchers.anyLong()))
@@ -77,7 +78,7 @@ class WarehouseServiceTest {
     }
 
     @Test
-    void returnedWarehouseNoFoundException_When_IdIsInValid_() {
+    void returnWarehouseNoFoundException_When_IdIsInValid_() {
 
         String expectedMessage = "Warehouse ID not found.";
 
@@ -92,13 +93,14 @@ class WarehouseServiceTest {
 
 
     @Test
-    void updateWarehouse_When_IdWarehouseIsExists() {
+    void updateWarehouse_When_IdWarehouseExists() {
 
         BDDMockito.when(warehouseRepo.save(ArgumentMatchers.any(Warehouse.class)))
                 .thenReturn(GenerateWarehouse.updatedWarehouse());
 
         BDDMockito.when(warehouseRepo.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.ofNullable(GenerateWarehouse.validWarehouse1()));
+
         BDDMockito.when(warehouseRepo.existsById(ArgumentMatchers.anyLong()))
                 .thenReturn(true);
 

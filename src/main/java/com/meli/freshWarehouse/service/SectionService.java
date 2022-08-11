@@ -1,12 +1,10 @@
 package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.SectionDto;
-import com.meli.freshWarehouse.exception.DataNotFoundException;
-import com.meli.freshWarehouse.exception.NotFoundException;
+import com.meli.freshWarehouse.exception.SectionNotFoundException;
 import com.meli.freshWarehouse.model.Section;
 import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.repository.ISectionRepo;
-import com.meli.freshWarehouse.repository.WarehouseRepo;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,12 +20,10 @@ public class SectionService implements ISectionService {
     private final ISectionRepo sectionRepo;
     private final IWarehouseService warehouseService;
 
-    private final WarehouseRepo warehouseRepo;
 
-    public SectionService(ISectionRepo sectionRepo, IWarehouseService warehouseService, WarehouseRepo warehouseRepo1) {
+    public SectionService(ISectionRepo sectionRepo, IWarehouseService warehouseService) {
         this.sectionRepo = sectionRepo;
         this.warehouseService = warehouseService;
-        this.warehouseRepo = warehouseRepo1;
     }
 
     @Override
@@ -46,20 +42,14 @@ public class SectionService implements ISectionService {
 
     @Transactional
     public List<Section> getAllSection() {
-
-        try {
-            return sectionRepo.findAll();
-        } catch (NotFoundException e) {
-            throw new DataNotFoundException("Data not found.");
-        }
-
+       return sectionRepo.findAll();
     }
 
     @Override
     public Section findById(Long id) {
 
         return sectionRepo.findById(id)
-                .orElseThrow(() -> new NotFoundException(
+                .orElseThrow(() -> new SectionNotFoundException(
                         "Section not found by id: " + id
                 ));
     }
@@ -83,7 +73,7 @@ public class SectionService implements ISectionService {
 
         Optional<Section> sectionFound = sectionRepo.findById(id);
         if (sectionFound.isEmpty()) {
-            throw new DataNotFoundException("Id not found");
+            throw new SectionNotFoundException("Section not found by id: " + id);
         }
         sectionRepo.deleteById(id);
 
