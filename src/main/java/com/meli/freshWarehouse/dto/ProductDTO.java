@@ -25,8 +25,7 @@ public class ProductDTO {
     @Positive
     private Double price;
 
-//    @NotNull(message = "Section Id cannot be null.")
-//    @Min(value = 0, message = "Section Id must be a positive number.")
+    @NotEmpty(message = "Sections Id cannot be empty.")
     private Set<Long> sectionsId;
 
     @NotNull(message = "Seller Id cannot be null.")
