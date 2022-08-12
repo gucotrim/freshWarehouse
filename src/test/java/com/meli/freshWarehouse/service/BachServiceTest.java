@@ -74,17 +74,5 @@ class BachServiceTest {
         assertThat(responseDueDateDtoList).isNotNull();
         verify(iSectionRepo, Mockito.times(1)).findByName("Fresh");
     }
-
-    @Test
-    void getBySectionAndDueDate_WhenListIsEmpty() {
-        
-
-        BDDMockito.when(iSectionRepo.findByName(ArgumentMatchers.anyString()))
-                .thenReturn(Collections.emptyList());
-
-
-        Exception exception = assertThrows(EmptySectionListException.class, () -> batchService.getBySectionAndDueDate("FS", null));
-
-        assertThat(exception).isInstanceOf(EmptySectionListException.class);
-    }
+    
 }
