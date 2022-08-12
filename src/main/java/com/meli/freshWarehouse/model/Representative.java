@@ -27,4 +27,8 @@ public class Representative {
     @JsonIgnore
     private Set<Order> listOrder;
 
+    public Representative(String name, Warehouse warehouse){
+        this.name = name;
+        this.warehouse = warehouse;
+    }
 }
