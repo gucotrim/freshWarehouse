@@ -1,6 +1,7 @@
 package com.meli.freshWarehouse.util;
 
 import com.meli.freshWarehouse.dto.WarehouseDTO;
+import com.meli.freshWarehouse.dto.WarehouseForProductStockResponseDTO;
 import com.meli.freshWarehouse.model.Warehouse;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -93,4 +94,29 @@ public class GenerateWarehouse {
         return expectedList;
     }
 
+    public static final List<WarehouseForProductStockResponseDTO> warehouseForProductStockResponseDTOWithStockAvailable() {
+        return Arrays.asList(
+                WarehouseForProductStockResponseDTO.builder()
+                        .warehouseId(1L)
+                        .totalQuantity(4L)
+                        .build(),
+                WarehouseForProductStockResponseDTO.builder()
+                        .warehouseId(2L)
+                        .totalQuantity(4L)
+                        .build()
+        );
+    }
+
+    public static final List<WarehouseForProductStockResponseDTO> warehouseForProductStockResponseDTOWithoutStockAvailable() {
+        return Arrays.asList(
+                WarehouseForProductStockResponseDTO.builder()
+                        .warehouseId(1L)
+                        .totalQuantity(0L)
+                        .build(),
+                WarehouseForProductStockResponseDTO.builder()
+                        .warehouseId(2L)
+                        .totalQuantity(0L)
+                        .build()
+        );
+    }
 }

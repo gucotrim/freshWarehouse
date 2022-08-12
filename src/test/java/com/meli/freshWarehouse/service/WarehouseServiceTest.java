@@ -1,9 +1,13 @@
 package com.meli.freshWarehouse.service;
 
+import com.meli.freshWarehouse.dto.ProductStockResponseDTO;
 import com.meli.freshWarehouse.dto.WarehouseDTO;
+import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.exception.WarehouseNotFoundException;
 import com.meli.freshWarehouse.model.Warehouse;
+import com.meli.freshWarehouse.repository.BatchRepo;
 import com.meli.freshWarehouse.repository.WarehouseRepo;
+import com.meli.freshWarehouse.util.GenerateProduct;
 import com.meli.freshWarehouse.util.GenerateWarehouse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +19,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,6 +30,9 @@ class WarehouseServiceTest {
 
     @Mock
     private WarehouseRepo warehouseRepo;
+
+    @Mock
+    private BatchRepo batchRepo;
 
     @Test
     void createWarehouse_WhenWarehouseIsValid() {
@@ -123,5 +131,38 @@ class WarehouseServiceTest {
 
     }
 
+    @Test
+    void getStockOfProductById_when_productIsAvailableInStock() {
+        BDDMockito.when(batchRepo.getStockOfProductById(ArgumentMatchers.anyLong()))
+                .thenReturn(GenerateWarehouse.warehouseForProductStockResponseDTOWithStockAvailable());
+        ProductStockResponseDTO productStockResponseDTOGenerated = GenerateProduct.productStockResponseDTOAvailableInStock();
 
+
+        ProductStockResponseDTO ProductStockResponseDTOReturned = warehouseService.getStockOfProductById(1L);
+
+        assertThat(ProductStockResponseDTOReturned.getProductId()).isEqualTo(productStockResponseDTOGenerated.getProductId());
+        assertThat(ProductStockResponseDTOReturned.getWarehouses()).isNotNull();
+        assertThat(ProductStockResponseDTOReturned.getWarehouses()).isNotEmpty();
+        assertThat(ProductStockResponseDTOReturned.getWarehouses().size()).isEqualTo(2);
+        assertThat(ProductStockResponseDTOReturned.getWarehouses().get(0).getWarehouseId()).isEqualTo(productStockResponseDTOGenerated.getWarehouses().get(0).getWarehouseId());
+        assertThat(ProductStockResponseDTOReturned.getWarehouses().get(0).getTotalQuantity()).isEqualTo(productStockResponseDTOGenerated.getWarehouses().get(0).getTotalQuantity());
+        assertThat(ProductStockResponseDTOReturned.getWarehouses().get(1).getWarehouseId()).isEqualTo(productStockResponseDTOGenerated.getWarehouses().get(1).getWarehouseId());
+        assertThat(ProductStockResponseDTOReturned.getWarehouses().get(1).getTotalQuantity()).isEqualTo(productStockResponseDTOGenerated.getWarehouses().get(1).getTotalQuantity());
+        verify(batchRepo, atLeastOnce()).getStockOfProductById(1L);
+    }
+
+    @Test
+    void getStockOfProductById_when_productIsNotAvailableInStock() {
+        BDDMockito.when(batchRepo.getStockOfProductById(ArgumentMatchers.anyLong()))
+                .thenReturn(GenerateWarehouse.warehouseForProductStockResponseDTOWithoutStockAvailable());
+
+        String expectedMessage = "Product not available in stock.";
+
+        Exception exception = assertThrows(NotFoundException.class, () ->
+                {warehouseService.getStockOfProductById(2L);}
+        );
+
+        assertThat(exception.getMessage()).isEqualTo(expectedMessage);
+        verify(batchRepo, atLeastOnce()).getStockOfProductById(2L);
+    }
 }
