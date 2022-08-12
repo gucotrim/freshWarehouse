@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
 
-public class SectionNotFoundException extends RuntimeException{
+public class SectionIdNotFoundException extends NotFoundException {
 
-    public SectionNotFoundException(String message) {
+    public SectionIdNotFoundException(String message) {
         super(message);
     }
 

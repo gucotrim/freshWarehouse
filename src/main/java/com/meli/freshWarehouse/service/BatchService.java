@@ -1,6 +1,9 @@
 package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.DueDateResponseDto;
+import com.meli.freshWarehouse.exception.EmptySectionListException;
+import com.meli.freshWarehouse.exception.InvalidSectionNameException;
+import com.meli.freshWarehouse.exception.SectionIdNotFoundException;
 import com.meli.freshWarehouse.model.Batch;
 import com.meli.freshWarehouse.model.Section;
 import com.meli.freshWarehouse.repository.BatchRepo;
@@ -33,11 +36,11 @@ public class BatchService implements IBatchService {
     @Override
     public List<DueDateResponseDto> getBySectionAndDueDate(Long sectionId, Integer amountOfDays) {
         if (amountOfDays == null) {
-            return dueDateRepo.getBySection(iSectionRepo.findById(sectionId).orElseThrow());
+            return dueDateRepo.getBySection(iSectionRepo.findById(sectionId).orElseThrow(() -> new SectionIdNotFoundException("Couldn't find any Section by this ID")));
         }
-        return dueDateRepo.getBySectionAndDueDate(iSectionRepo.findById(sectionId).orElseThrow(), LocalDate.now(),
-                LocalDate.now().plusDays(amountOfDays));
-    }
+        return dueDateRepo.getBySectionAndDueDate(iSectionRepo.findById(sectionId).orElseThrow(() -> new SectionIdNotFoundException("Couldn't find any Section by this ID")),
+                                                    LocalDate.now(), LocalDate.now().plusDays(amountOfDays));
+        }
 
     @Override
     public List<DueDateResponseDto> getBySectionAndDueDate(String sectionName, Integer amountOfDays) {
@@ -47,17 +50,29 @@ public class BatchService implements IBatchService {
             case "FS":
                 sectionList = iSectionRepo.findByName("Fresh");
                 sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
+                if (sectionList.isEmpty()) {
+                    throw new EmptySectionListException("Couldn't find any products in this Section");
+                }
+
                 return batchList;
             case "RF":
                 sectionList = iSectionRepo.findByName("Refrigerated");
                 sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
+                if (sectionList.isEmpty()) {
+                    throw new EmptySectionListException("Couldn't find any products in this Section");
+                }
+
                 return batchList;
             case "FF":
                 sectionList = iSectionRepo.findByName("Frozen");
                 sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
+                if (sectionList.isEmpty()) {
+                    throw new EmptySectionListException("Couldn't find any products in this Section");
+                }
+
                 return batchList;
             default:
-                throw new RuntimeException("The section options are: FS, RF or FF");
+                throw new InvalidSectionNameException("Please, enter one of the options: FS, RF or FF");
         }
     }
 }
