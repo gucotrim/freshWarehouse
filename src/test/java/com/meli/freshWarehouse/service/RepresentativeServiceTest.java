@@ -2,8 +2,10 @@ package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.RepresentativeDTO;
 import com.meli.freshWarehouse.exception.RepresentativeNotFoundException;
+import com.meli.freshWarehouse.model.Order;
 import com.meli.freshWarehouse.model.Representative;
 import com.meli.freshWarehouse.repository.RepresentativeRepo;
+import com.meli.freshWarehouse.util.GenerateOrder;
 import com.meli.freshWarehouse.util.GenerateRepresentative;
 import com.meli.freshWarehouse.util.GenerateWarehouse;
 import org.junit.jupiter.api.BeforeEach;
@@ -130,15 +132,14 @@ class RepresentativeServiceTest {
 
     @Test
     void findById() {
-        BDDMockito.doNothing().when(representativeRepo).deleteById(ArgumentMatchers.anyLong());
-
         BDDMockito.when(representativeRepo.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.ofNullable(GenerateRepresentative.validRepresentative1()));
 
         Representative representative = GenerateRepresentative.validRepresentative1();
-        representativeService.findById(representative.getId());
+        Representative representativeResponse = representativeService.findById(representative.getId());
 
-        verify(representativeRepo, Mockito.atLeastOnce()).findById(representative.getId());
+        assertThat(representativeResponse).isNotNull();
+        assertThat(representativeResponse.getId()).isEqualTo(representative.getId());
     }
 
 
