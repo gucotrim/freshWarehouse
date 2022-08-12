@@ -15,6 +15,7 @@ public class GenerateInboundOrder {
 
         inboundOrderDto.setRepresentativeId(1L);
         inboundOrderDto.setBatchStockList(GenerateBachStock.validBatchResponseDto());
+        inboundOrderDto.setSectionId(1L);
 
         return inboundOrderDto;
 

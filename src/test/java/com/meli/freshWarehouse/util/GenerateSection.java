@@ -30,10 +30,26 @@ public class GenerateSection {
     }
 
     public static final Section validSection1() {
+        //section
+        Set<Product> productSet = new HashSet<>();
+
+        productSet.add(Product.builder()
+                .id(1l)
+                .name("Leite")
+                .price(2.0)
+                .build());
+
+        productSet.add(Product.builder()
+                .id(1l)
+                .name("Tody")
+                .price(10.0)
+                .build());
+
         return Section.builder()
                 .id(1L)
                 .name("Section test 1")
                 .availableSpace(23)
+                .products(productSet)
                 .warehouse(GenerateWarehouse.validWarehouse1())
                 .build();
     }
@@ -43,7 +59,14 @@ public class GenerateSection {
                 .id(2L)
                 .name("Section test 2")
                 .availableSpace(25)
-                .warehouse(GenerateWarehouse.validWarehouse2())
+                .warehouse(Warehouse.builder()
+                        .id(2L)
+                        .address("Rua dois test")
+                        .city("Belo Horizonte")
+                        .state("Minas Gerais")
+                        .country("Brasil")
+                        .number(25)
+                        .build())
                 .build();
     }
 
@@ -58,26 +81,18 @@ public class GenerateSection {
 
     public static final Set<Section> validSectionList() {
 
-        Warehouse warehouse = new Warehouse();
-        warehouse.setCity("Belo Horizonte");
-        warehouse.setAddress("Rua b");
-        warehouse.setNumber(33);
-        warehouse.setCountry("Brasil");
-        warehouse.setState("Minas Gerais");
-
         Set<Product> productSet = new HashSet<>();
-        Product product = new Product();
-        product.setId(1l);
-        product.setName("Leite");
-        product.setPrice(2.0);
-
-        productSet.add(product);
+        productSet.add(Product.builder()
+                .id(1l)
+                .name("Leite")
+                .price(2.0)
+                .build());
 
         Section newSection = Section.builder()
                 .id(1L)
-                .name("Section Name")
-                .availableSpace(33)
-                .warehouse(warehouse)
+                .name("Section test 1")
+                .availableSpace(23)
+                .warehouse(GenerateWarehouse.validWarehouse1())
                 .products(productSet)
                 .build();
 

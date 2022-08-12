@@ -2,6 +2,7 @@ package com.meli.freshWarehouse.util;
 
 import com.meli.freshWarehouse.dto.RepresentativeDTO;
 import com.meli.freshWarehouse.model.Representative;
+import com.meli.freshWarehouse.model.Warehouse;
 
 public class GenerateRepresentative {
 
@@ -27,7 +28,14 @@ public class GenerateRepresentative {
         return Representative.builder()
                 .id(1L)
                 .name("Name Representative Test")
-                .warehouse(GenerateWarehouse.validWarehouse1())
+                .warehouse(Warehouse.builder()
+                        .id(1L)
+                        .address("Rua um test")
+                        .city("São Paulo")
+                        .state("São Paulo")
+                        .country("Brasil")
+                        .number(23)
+                        .build())
                 .build();
     }
 
