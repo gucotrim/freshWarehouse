@@ -1,7 +1,9 @@
 package com.meli.freshWarehouse.util;
 
 import com.meli.freshWarehouse.dto.SectionDto;
+import com.meli.freshWarehouse.model.Product;
 import com.meli.freshWarehouse.model.Section;
+import com.meli.freshWarehouse.model.Warehouse;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -55,13 +57,35 @@ public class GenerateSection {
     }
 
     public static final Set<Section> validSectionList() {
+
+        Warehouse warehouse = new Warehouse();
+        warehouse.setCity("Belo Horizonte");
+        warehouse.setAddress("Rua b");
+        warehouse.setNumber(33);
+        warehouse.setCountry("Brasil");
+        warehouse.setState("Minas Gerais");
+
+        Set<Product> productSet = new HashSet<>();
+        Product product = new Product();
+        product.setId(1l);
+        product.setName("Leite");
+        product.setPrice(2.0);
+
+        productSet.add(product);
+
+        Section newSection = Section.builder()
+                .id(1L)
+                .name("Section Name")
+                .availableSpace(33)
+                .warehouse(warehouse)
+                .products(productSet)
+                .build();
+
         Set<Section> sectionSet = new HashSet<>();
-        sectionSet.add(GenerateSection.validSection1());
-        sectionSet.add(GenerateSection.validSection2());
+        sectionSet.add(newSection);
 
         return sectionSet;
     }
-
 
 
 }

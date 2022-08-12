@@ -41,45 +41,45 @@ public class GenerateBachStock {
 
     }
 
-    public static Set<Batch> validBatchResponse() {
-
-        Set<Batch> batchDtoList = new HashSet<>();
-
-        Batch batchResponse1 = Batch.builder()
-                .id(1L)
-                .minimumTemperature(25F)
-                .currentTemperature(14F)
-                .initialQuantity(2)
-                .currentQuantity(2)
-                .manufacturingDate(LocalDate.parse("2021-06-03"))
-                .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
-                .dueDate(LocalDate.parse("2021-07-24"))
-                .order(GenerateOrder.validOrder1())
-                .section(GenerateSection.validSection1())
-                .product(GenerateProduct.validProduct1())
-                .build();
-
-        Batch batchResponse2 = Batch.builder()
-                .id(2L)
-                .minimumTemperature(15F)
-                .currentTemperature(18F)
-                .initialQuantity(4)
-                .currentQuantity(5)
-                .manufacturingDate(LocalDate.parse("2021-06-03"))
-                .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
-                .dueDate(LocalDate.parse("2021-05-12"))
-                .order(GenerateOrder.validOrder2())
-                .section(GenerateSection.validSection2())
-                .product(GenerateProduct.validProduct2())
-                .build();
-
-        batchDtoList.add(batchResponse1);
-        batchDtoList.add(batchResponse2);
-
-
-        return batchDtoList;
-
-    }
+//    public static Set<Batch> validBatchResponse() {
+//
+//        Set<Batch> batchDtoList = new HashSet<>();
+//
+//        Batch batchResponse1 = Batch.builder()
+//                .id(1L)
+//                .minimumTemperature(25F)
+//                .currentTemperature(14F)
+//                .initialQuantity(2)
+//                .currentQuantity(2)
+//                .manufacturingDate(LocalDate.parse("2021-06-03"))
+//                .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
+//                .dueDate(LocalDate.parse("2021-07-24"))
+//                .order(GenerateOrder.validOrder1())
+//                .section(GenerateSection.validSection1())
+//                .product(GenerateProduct.validProduct1())
+//                .build();
+//
+//        Batch batchResponse2 = Batch.builder()
+//                .id(2L)
+//                .minimumTemperature(15F)
+//                .currentTemperature(18F)
+//                .initialQuantity(4)
+//                .currentQuantity(5)
+//                .manufacturingDate(LocalDate.parse("2021-06-03"))
+//                .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
+//                .dueDate(LocalDate.parse("2021-05-12"))
+//                .order(GenerateOrder.validOrder2())
+//                .section(GenerateSection.validSection2())
+//                .product(GenerateProduct.validProduct2())
+//                .build();
+//
+//        batchDtoList.add(batchResponse1);
+//        batchDtoList.add(batchResponse2);
+//
+//
+//        return batchDtoList;
+//
+//    }
 
     public static Set<BatchResponseDto> validBatchResponseDtoList() {
 
@@ -149,4 +149,34 @@ public class GenerateBachStock {
         return batchDtoList;
 
     }
+    public static Set<Batch> validBatchResponse() {
+        Set<Batch> batchSet = new HashSet<>();
+        batchSet.add(Batch.builder()
+                .id(1L)
+                .minimumTemperature(25F)
+                .currentTemperature(14F)
+                .initialQuantity(2)
+                .currentQuantity(2)
+                .manufacturingDate(LocalDate.parse("2021-06-03T14:10:14"))
+                .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
+                .dueDate(LocalDate.parse("2021-07-24"))
+                .build()
+        );
+
+        batchSet.add(Batch.builder()
+                .id(1L)
+                .minimumTemperature(15F)
+                .currentTemperature(18F)
+                .initialQuantity(4)
+                .currentQuantity(5)
+                .manufacturingDate(LocalDate.parse("2021-06-03T14:24:54"))
+                .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
+                .dueDate(LocalDate.parse("2021-05-12"))
+                .build()
+        );
+
+        return batchSet;
+    }
+
+
 }

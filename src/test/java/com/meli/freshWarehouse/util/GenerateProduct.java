@@ -1,6 +1,7 @@
 package com.meli.freshWarehouse.util;
 
 import com.meli.freshWarehouse.dto.ProductDTO;
+import com.meli.freshWarehouse.model.Order;
 import com.meli.freshWarehouse.model.Product;
 
 import java.util.HashSet;
@@ -32,7 +33,8 @@ public class GenerateProduct {
                 .build();
     }
 
-    public final static Product newProduct2() {
+
+    public final static Product newProduct() {
 
         return Product.builder()
                 .name("Milk")
@@ -53,6 +55,17 @@ public class GenerateProduct {
                 .build();
     }
 
+    public final static Product responseProduct(){
+
+        return Product.builder()
+                .id(1L)
+                .name("New Product")
+                .price(10.0)
+                .seller(GenerateSeller.validSeller1())
+                .sections(GenerateSection.validSectionList())
+                .build();
+    }
+
     public final static Product validProduct2(){
 
         return Product.builder()
@@ -61,6 +74,19 @@ public class GenerateProduct {
                 .price(8.0)
                 .seller(GenerateSeller.validSeller2())
                 .sections(GenerateSection.validSectionList())
+                .build();
+    }
+
+    public final static ProductDTO validProductDto()
+    {
+        Set<Long> longSet = new HashSet<>();
+        longSet.add(1l);
+
+        return ProductDTO.builder()
+                .name("Milk")
+                .price(8.0)
+                .sectionsId(longSet)
+                .sellerId(1L)
                 .build();
     }
 

@@ -51,7 +51,7 @@ public class GenerateOrder {
     public static final Set<Order> validOrderLit() {
         Set<Order> orderList = new HashSet<>();
         orderList.add(validOrder1());
-        orderList.add(validOrder2());
+//        orderList.add(validOrder2());
         return orderList;
     }
 }

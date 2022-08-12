@@ -5,7 +5,6 @@ import com.meli.freshWarehouse.dto.WarehouseDTO;
 import com.meli.freshWarehouse.dto.WarehouseForProductStockResponseDTO;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.exception.WarehouseNotFoundException;
-import com.meli.freshWarehouse.model.Product;
 import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.repository.BatchRepo;
 import com.meli.freshWarehouse.repository.WarehouseRepo;
