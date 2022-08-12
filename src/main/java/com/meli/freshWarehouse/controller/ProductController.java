@@ -2,9 +2,11 @@ package com.meli.freshWarehouse.controller;
 
 
 import com.meli.freshWarehouse.dto.ProductDTO;
+import com.meli.freshWarehouse.dto.WarehouseProductResponseDTO;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.model.Product;
 import com.meli.freshWarehouse.service.IProductService;
+import com.meli.freshWarehouse.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +19,11 @@ import java.util.List;
 @RequestMapping("/api/v1/fresh-products/product")
 public class ProductController {
 
-    @Autowired
-    private IProductService productService;
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     /**
      * Saves a new product
@@ -53,6 +58,12 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(productService.getProductById(id));
     }
 
+    @GetMapping("{id}/list-batch")
+    public ResponseEntity<WarehouseProductResponseDTO> getProductInAllBatches(@PathVariable Long id,
+                                                                              @RequestParam(value = "idSection") Long idSection,
+                                                                              @RequestParam(value = "filter", required = false) String filter) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getProductInAllBatches(id,idSection,filter));
+    }
 
     /**
      * Updates a product by id
