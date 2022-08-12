@@ -58,7 +58,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(productService.getProductById(id));
     }
 
-    @GetMapping("list-batch/{id}")
+    @GetMapping("{id}/list-batch")
     public ResponseEntity<WarehouseProductResponseDTO> getProductInAllBatches(@PathVariable Long id,
                                                                               @RequestParam(value = "idSection") Long idSection,
                                                                               @RequestParam(value = "filter", required = false) String filter) {

@@ -36,6 +36,15 @@ public class GenerateSection {
                 .build();
     }
 
+    public static final Section validSectionToExpection1() {
+        return Section.builder()
+                .id(3L)
+                .name("Section test 1")
+                .availableSpace(23)
+                .warehouse(GenerateWarehouse.validWarehouse1())
+                .build();
+    }
+
     public static final Section validSection2() {
         return Section.builder()
                 .id(2L)
@@ -66,6 +75,18 @@ public class GenerateSection {
         Set<Section> sectionSet = new HashSet<>();
         sectionSet.add(GenerateSection.validSection1());
         sectionSet.add(GenerateSection.validSection2());
+
+        return sectionSet;
+    }
+
+    public static final Set<Section> validSectionListToException() {
+        Set<Section> sectionSet = new HashSet<>();
+        sectionSet.add(Section.builder()
+                .id(3L)
+                .name("Section test 1")
+                .availableSpace(23)
+                .warehouse(GenerateWarehouse.validWarehouse1())
+                .build());
 
         return sectionSet;
     }
