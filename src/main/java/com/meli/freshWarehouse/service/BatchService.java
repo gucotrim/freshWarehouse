@@ -12,8 +12,7 @@ import com.meli.freshWarehouse.repository.ISectionRepo;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BatchService implements IBatchService {
@@ -36,7 +35,8 @@ public class BatchService implements IBatchService {
     @Override
     public List<DueDateResponseDto> getBySectionAndDueDate(Long sectionId, Integer amountOfDays) {
         if (amountOfDays == null) {
-            return dueDateRepo.getBySection(iSectionRepo.findById(sectionId).orElseThrow(() -> new SectionIdNotFoundException("Couldn't find any Section by this ID")));
+            Section sectionById = iSectionRepo.findById(sectionId).orElseThrow(() -> new SectionIdNotFoundException("Couldn't find any Section by this ID"));
+            return dueDateRepo.getBySection(sectionById);
         }
         return dueDateRepo.getBySectionAndDueDate(iSectionRepo.findById(sectionId).orElseThrow(() -> new SectionIdNotFoundException("Couldn't find any Section by this ID")),
                                                     LocalDate.now(), LocalDate.now().plusDays(amountOfDays));
@@ -45,10 +45,10 @@ public class BatchService implements IBatchService {
     @Override
     public List<DueDateResponseDto> getBySectionAndDueDate(String sectionName, Integer amountOfDays) {
         List<DueDateResponseDto> batchList = new ArrayList<>();
-        List<Section> sectionList = new ArrayList<>();
+        Set<Section> sectionList = new HashSet<>();
         switch (sectionName) {
             case "FS":
-                sectionList = iSectionRepo.findByName("Fresh");
+                sectionList.addAll(iSectionRepo.findByName("Fresh"));
                 sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
                 if (sectionList.isEmpty()) {
                     throw new EmptySectionListException("Couldn't find any products in this Section");
@@ -56,7 +56,7 @@ public class BatchService implements IBatchService {
 
                 return batchList;
             case "RF":
-                sectionList = iSectionRepo.findByName("Refrigerated");
+                sectionList.addAll(iSectionRepo.findByName("Refrigerated"));
                 sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
                 if (sectionList.isEmpty()) {
                     throw new EmptySectionListException("Couldn't find any products in this Section");
@@ -64,7 +64,7 @@ public class BatchService implements IBatchService {
 
                 return batchList;
             case "FF":
-                sectionList = iSectionRepo.findByName("Frozen");
+                sectionList.addAll(iSectionRepo.findByName("Frozen"));
                 sectionList.forEach(section -> batchList.addAll(getBySectionAndDueDate(section.getId(), amountOfDays)));
                 if (sectionList.isEmpty()) {
                     throw new EmptySectionListException("Couldn't find any products in this Section");
