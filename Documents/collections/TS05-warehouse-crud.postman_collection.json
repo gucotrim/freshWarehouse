@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d3090cd8-5959-46d8-ba03-247190b9d8a1",
+		"_postman_id": "35e0fe9f-e253-4d82-8d0e-057c72a77950",
 		"name": "TS05-warehouse-crud",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"address\": \"Address\",\n    \"city\": \"Ceilandia\",\n    \"state\": \"GO\",\n    \"country\": \"Brasil\",\n    \"number\": 30\n}",
+					"raw": "{\n    \"address\": \"Address\",\n    \"city\": \"Campinas\",\n    \"state\": \"SP\",\n    \"country\": \"Brasil\",\n    \"number\": 30\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -53,6 +53,30 @@
 						"v1",
 						"fresh-products",
 						"warehouse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getStockOfProductById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/warehouse/product-quantity/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"warehouse",
+						"product-quantity",
+						"2"
 					]
 				}
 			},

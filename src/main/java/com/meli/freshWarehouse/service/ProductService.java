@@ -143,7 +143,7 @@ public class ProductService implements IProductService {
     }
 
     private Set<Batch> orderListBatch(Set<Batch> listBatch, String filter) {
-        if (filter == "") {
+        if (filter == null || filter == "") {
             return listBatch;
         }
         switch (filter) {

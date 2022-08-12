@@ -1,14 +1,15 @@
 package com.meli.freshWarehouse.util;
 
-import com.meli.freshWarehouse.dto.BatchResponseDto;
 import com.meli.freshWarehouse.dto.ProductDTO;
+import com.meli.freshWarehouse.dto.ProductStockResponseDTO;
+import com.meli.freshWarehouse.dto.WarehouseForProductStockResponseDTO;
 import com.meli.freshWarehouse.model.Batch;
 import com.meli.freshWarehouse.model.Product;
 
+import java.util.Arrays;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 public class GenerateProduct {
@@ -200,5 +201,35 @@ public class GenerateProduct {
                 .build();
     }
 
+    public final static ProductStockResponseDTO productStockResponseDTOAvailableInStock() {
+        return ProductStockResponseDTO.builder()
+                .productId(1L)
+                .warehouses(Arrays.asList(
+                        WarehouseForProductStockResponseDTO.builder()
+                                .warehouseId(1L)
+                                .totalQuantity(4L)
+                                .build(),
+                        WarehouseForProductStockResponseDTO.builder()
+                                .warehouseId(2L)
+                                .totalQuantity(4L)
+                                .build()
+                ))
+                .build();
+    }
 
+    public final static ProductStockResponseDTO productStockResponseDTONotAvailableInStock() {
+        return ProductStockResponseDTO.builder()
+                .productId(1L)
+                .warehouses(Arrays.asList(
+                        WarehouseForProductStockResponseDTO.builder()
+                                .warehouseId(1L)
+                                .totalQuantity(0L)
+                                .build(),
+                        WarehouseForProductStockResponseDTO.builder()
+                                .warehouseId(2L)
+                                .totalQuantity(0L)
+                                .build()
+                ))
+                .build();
+    }
 }
