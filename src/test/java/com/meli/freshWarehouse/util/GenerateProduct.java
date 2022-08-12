@@ -64,5 +64,16 @@ public class GenerateProduct {
                 .build();
     }
 
+    public final static Product validFreshProduct(){
+
+        return Product.builder()
+                .id(3L)
+                .name("Milk")
+                .price(10.0)
+                .seller(GenerateSeller.validSeller2())
+                .sections(GenerateSection.validFreshSectionList())
+                .build();
+    }
+
 
 }
