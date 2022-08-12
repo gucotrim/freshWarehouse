@@ -54,6 +54,14 @@ public class GenerateSection {
                 .build();
     }
 
+    public static final SectionDto validSectionDto1(){
+        return SectionDto.builder()
+                .idWarehouse(GenerateWarehouse.validWarehouse1().getId())
+                .name("Section test 2")
+                .availableSpace(30)
+                .build();
+    }
+
     public static final Set<Section> validSectionList() {
         Set<Section> sectionSet = new HashSet<>();
         sectionSet.add(GenerateSection.validSection1());
