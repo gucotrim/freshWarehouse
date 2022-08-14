@@ -91,7 +91,7 @@ public class GenerateSection {
     public static final SectionDto validSectionDto1(){
         return SectionDto.builder()
                 .idWarehouse(GenerateWarehouse.validWarehouse1().getId())
-                .name("Section test 2")
+                .name("Section test 1")
                 .availableSpace(30)
                 .build();
     }
