@@ -61,17 +61,46 @@ public class ProductService implements IProductService {
 
     @Override
     public List<ProductPurchaseDto> getProductByCategory(String category) {
-        LocalDate dueDate = LocalDate.now().plusDays(21);
         List<ProductPurchaseDto> productPurchaseDtoList;
         switch (category) {
             case "FS":
-                productPurchaseDtoList = productRepository.findBySectionName("Fresh", dueDate);
+                productPurchaseDtoList = this.getAll().stream().filter(p -> {
+                    Optional<Section> section = p.getSections().stream().filter(s -> s.getName().equals("Fresh")).findFirst();
+                    if(section.isPresent()) {
+                        return true;
+                    }
+                    return false;
+                }).map(p -> ProductPurchaseDto.builder()
+                        .id(p.getId())
+                        .name(p.getName())
+                        .price(p.getPrice())
+                        .build()).collect(Collectors.toList());
                 break;
             case "RF":
-                productPurchaseDtoList = productRepository.findBySectionName("Refrigerated", dueDate);
+                productPurchaseDtoList = this.getAll().stream().filter(p -> {
+                    Optional<Section> section = p.getSections().stream().filter(s -> s.getName().equals("Refrigerated")).findFirst();
+                    if(section.isPresent()) {
+                        return true;
+                    }
+                    return false;
+                }).map(p -> ProductPurchaseDto.builder()
+                        .id(p.getId())
+                        .name(p.getName())
+                        .price(p.getPrice())
+                        .build()).collect(Collectors.toList());
                 break;
             case "FF":
-                productPurchaseDtoList = productRepository.findBySectionName("Frozen", dueDate);
+                productPurchaseDtoList = this.getAll().stream().filter(p -> {
+                    Optional<Section> section = p.getSections().stream().filter(s -> s.getName().equals("Frozen")).findFirst();
+                    if(section.isPresent()) {
+                        return true;
+                    }
+                    return false;
+                }).map(p -> ProductPurchaseDto.builder()
+                        .id(p.getId())
+                        .name(p.getName())
+                        .price(p.getPrice())
+                        .build()).collect(Collectors.toList());
                 break;
             default:
                 throw new InvalidSectionNameException("Please, enter one of the options: FS, RF or FF");
