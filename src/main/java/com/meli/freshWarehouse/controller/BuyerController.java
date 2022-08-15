@@ -58,7 +58,7 @@ public class BuyerController {
      * @return A buyer.
      * @see <a href="http://localhost:8080/api/v1/fresh-products/buyer"> Update buyer</a>
      */
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<Buyer> updateBuyer(@PathVariable Long id, @RequestBody @Valid BuyerDto buyerDto){
         return new ResponseEntity(service.updateBuyer(id, buyerDto),HttpStatus.OK);
     }
