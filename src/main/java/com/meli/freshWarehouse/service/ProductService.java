@@ -1,6 +1,8 @@
 package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.*;
+import com.meli.freshWarehouse.exception.EmptySectionListException;
+import com.meli.freshWarehouse.exception.InvalidSectionNameException;
 import com.meli.freshWarehouse.exception.ItsNotBelongException;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.model.Batch;
@@ -55,6 +57,29 @@ public class ProductService implements IProductService {
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElseThrow(() -> new NotFoundException("Can't find product with the informed id"));
 
+    }
+
+    @Override
+    public List<ProductPurchaseDto> getProductByCategory(String category) {
+        LocalDate dueDate = LocalDate.now().plusDays(21);
+        List<ProductPurchaseDto> productPurchaseDtoList;
+        switch (category) {
+            case "FS":
+                productPurchaseDtoList = productRepository.findBySectionName("Fresh", dueDate);
+                break;
+            case "RF":
+                productPurchaseDtoList = productRepository.findBySectionName("Refrigerated", dueDate);
+                break;
+            case "FF":
+                productPurchaseDtoList = productRepository.findBySectionName("Frozen", dueDate);
+                break;
+            default:
+                throw new InvalidSectionNameException("Please, enter one of the options: FS, RF or FF");
+        }
+        if(productPurchaseDtoList.isEmpty()) {
+            throw new EmptySectionListException("Products for this category not found!");
+        }
+        return productPurchaseDtoList;
     }
 
     @Override
