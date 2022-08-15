@@ -6,12 +6,11 @@ import com.meli.freshWarehouse.dto.WarehouseForProductStockResponseDTO;
 import com.meli.freshWarehouse.model.Batch;
 import com.meli.freshWarehouse.model.Order;
 import com.meli.freshWarehouse.model.Product;
+import com.meli.freshWarehouse.model.Section;
 
-import java.util.Arrays;
+import java.util.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 public class GenerateProduct {
 
@@ -43,6 +42,7 @@ public class GenerateProduct {
     public final static Product newProduct() {
 
         return Product.builder()
+                .id(1L)
                 .name("Milk")
                 .price(8.0)
                 .seller(GenerateSeller.validSeller2())
@@ -257,5 +257,27 @@ public class GenerateProduct {
                                 .build()
                 ))
                 .build();
+    }
+
+    public static final List<Product> validProductList() {
+
+        List<Product> productList = new ArrayList<>();
+        productList.add(Product.builder()
+                .id(1L)
+                .name("Toddy")
+                .price(10.0)
+                .seller(GenerateSeller.validSeller1())
+                .sections(GenerateSection.validSectionList())
+                .build());
+
+        productList.add(Product.builder()
+                .id(2L)
+                .name("Leite")
+                .price(15.0)
+                .seller(GenerateSeller.validSeller1())
+                .sections(GenerateSection.validSectionList())
+                .build());
+
+        return productList;
     }
 }
