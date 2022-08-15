@@ -4,6 +4,7 @@ import com.meli.freshWarehouse.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpServerErrorException;
@@ -78,8 +79,7 @@ public class ExceptionHandlerController {
                 .title(BAD_REQUEST)
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message("Bad Request. Param " + e.getName() +
-                        " has invalid value: " + e.getValue() + ". Expected: Boolean"
-                )
+                        " has invalid value: " + e.getValue())
                 .localDateTime(LocalDateTime.now())
                 .build(),
                 HttpStatus.BAD_REQUEST
@@ -132,6 +132,58 @@ public class ExceptionHandlerController {
                 .build(),
                 HttpStatus.UNPROCESSABLE_ENTITY
         );
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ExceptionDetails> handlerMissingParamEx(MissingServletRequestParameterException e) {
+        return new ResponseEntity<>(ExceptionDetails.builder()
+                .title("Unprocessable Entity.")
+                .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
+                .message(e.getMessage())
+                .localDateTime(LocalDateTime.now())
+                .build(),
+                HttpStatus.UNPROCESSABLE_ENTITY
+        );
+    }
+
+    @ExceptionHandler({EmptySectionListException.class})
+    public ResponseEntity<ExceptionDetails> handlerEmptySectionListEx(EmptySectionListException ex) {
+
+        return new ResponseEntity<>(ExceptionDetails.builder()
+                .title("This Section is Empty.")
+                .status(HttpStatus.NOT_FOUND.value())
+                .message(ex.getMessage())
+                .localDateTime(LocalDateTime.now())
+                .build(),
+                HttpStatus.NOT_FOUND
+        );
+
+    }
+    @ExceptionHandler({SectionIdNotFoundException.class})
+    public ResponseEntity<ExceptionDetails> handlerSectionIdNotFoundEx(SectionIdNotFoundException ex) {
+
+        return new ResponseEntity<>(ExceptionDetails.builder()
+                .title("Section ID not found.")
+                .status(HttpStatus.NOT_FOUND.value())
+                .message(ex.getMessage())
+                .localDateTime(LocalDateTime.now())
+                .build(),
+                HttpStatus.NOT_FOUND
+        );
+
+    }
+    @ExceptionHandler({InvalidSectionNameException.class})
+    public ResponseEntity<ExceptionDetails> handlerInvalidSectionNameEx(InvalidSectionNameException ex) {
+
+        return new ResponseEntity<>(ExceptionDetails.builder()
+                .title("This Section name isn't valid.")
+                .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
+                .message(ex.getMessage())
+                .localDateTime(LocalDateTime.now())
+                .build(),
+                HttpStatus.UNPROCESSABLE_ENTITY
+        );
+
     }
 
 }

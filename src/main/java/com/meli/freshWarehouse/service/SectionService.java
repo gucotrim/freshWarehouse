@@ -1,8 +1,8 @@
 package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.SectionDto;
+import com.meli.freshWarehouse.exception.SectionIdNotFoundException;
 import com.meli.freshWarehouse.exception.NotFoundException;
-import com.meli.freshWarehouse.exception.SectionNotFoundException;
 import com.meli.freshWarehouse.model.Section;
 import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.repository.ISectionRepo;
@@ -52,7 +52,7 @@ public class SectionService implements ISectionService {
     public Section findById(Long id) {
 
         return sectionRepo.findById(id)
-                .orElseThrow(() -> new NotFoundException(
+                .orElseThrow(() -> new SectionIdNotFoundException(
                         "Section not found by id: " + id
                 ));
     }
@@ -76,7 +76,7 @@ public class SectionService implements ISectionService {
 
         Optional<Section> sectionFound = sectionRepo.findById(id);
         if (sectionFound.isEmpty()) {
-            throw new SectionNotFoundException("Section not found by id: " + id);
+            throw new SectionIdNotFoundException("Section not found by id: " + id);
         }
         sectionRepo.deleteById(id);
 
