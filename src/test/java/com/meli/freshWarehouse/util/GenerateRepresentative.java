@@ -43,6 +43,14 @@ public class GenerateRepresentative {
         return Representative.builder()
                 .id(2L)
                 .name("Name Representative2 Test")
+                .warehouse(Warehouse.builder()
+                        .id(2L)
+                        .address("Rua um test")
+                        .city("São Paulo")
+                        .state("São Paulo")
+                        .country("Brasil")
+                        .number(23)
+                        .build())
                 .build();
     }
 

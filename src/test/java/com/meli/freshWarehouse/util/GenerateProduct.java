@@ -61,6 +61,7 @@ public class GenerateProduct {
                 .build();
     }
 
+
     public final static Product responseProduct(){
 
         return Product.builder()
@@ -207,7 +208,7 @@ public class GenerateProduct {
 
         return Product.builder()
                 .id(2L)
-                .name("Milk")
+                .name("Leite")
                 .price(8.0)
                 .seller(GenerateSeller.validSeller2())
                 .sections(GenerateSection.validSectionList())

@@ -1,5 +1,6 @@
 package com.meli.freshWarehouse.util;
 
+import com.meli.freshWarehouse.dto.OrderResponseDto;
 import com.meli.freshWarehouse.model.Order;
 import com.meli.freshWarehouse.model.Representative;
 import com.meli.freshWarehouse.model.Section;
@@ -78,7 +79,15 @@ public class GenerateOrder {
     public static final Set<Order> validOrderLit() {
         Set<Order> orderList = new HashSet<>();
         orderList.add(validOrder1());
-//        orderList.add(validOrder2());
         return orderList;
+    }
+
+    public static Order validOrderResponse() {
+
+        return Order.builder()
+                .id(1L)
+                .orderDate(LocalDate.parse("2022-08-09"))
+                .build();
+
     }
 }

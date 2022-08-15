@@ -112,8 +112,6 @@ public class InboundOrderService implements IInboundOrderService {
     }
 
     private Product validateProduct(Product product, Section section) {
-        //verificar mudanca
-
 
         product.getSections().stream().filter((p) ->
                 p.getId().equals(section.getId())

@@ -34,7 +34,7 @@ public class GenerateSection {
         Set<Product> productSet = new HashSet<>();
 
         productSet.add(Product.builder()
-                .id(1l)
+                .id(2l)
                 .name("Leite")
                 .price(2.0)
                 .build());

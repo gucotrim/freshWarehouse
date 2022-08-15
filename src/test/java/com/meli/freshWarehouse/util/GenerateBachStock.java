@@ -48,16 +48,15 @@ public class GenerateBachStock {
     public static List<Batch> validBatchResponseDtoList() {
 
         List<Batch> batchDtoList = new ArrayList<>();
-
         Batch batchResponse1 = Batch.builder()
                 .id(1L)
-                .currentTemperature(14F)
-                .minimumTemperature(25F)
+                .currentTemperature(22.0F)
+                .minimumTemperature(25.0F)
                 .initialQuantity(2)
                 .currentQuantity(2)
-                .manufacturingDate(LocalDate.parse("2021-06-03"))
-                .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
-                .dueDate(LocalDate.parse("2021-07-24"))
+                .manufacturingDate(LocalDate.parse("2022-05-24"))
+                .manufacturingTime(LocalDateTime.parse("2022-06-03T14:24:54"))
+                .dueDate(LocalDate.parse("2022-07-22"))
                 .order(GenerateOrder.validOrder1())
                 .product(GenerateProduct.validProduct1())
                 .section(Section.builder()
@@ -74,28 +73,14 @@ public class GenerateBachStock {
                                 .build())
                         .build())
                 .build();
-//
-//        Batch batchResponse2 = Batch.builder()
-//                .id(2L)
-//                .product()
-//                .minimumTemperature(15F)
-//                .currentTemperature(18F)
-//                .initialQuantity(4)
-//                .currentQuantity(5)
-//                .manufacturingDate(LocalDate.parse("2021-06-03"))
-//                .manufacturingTime(LocalDateTime.parse("2021-06-03T14:24:54"))
-//                .dueDate(LocalDate.parse("2021-05-12"))
-//                .build();
 
         batchDtoList.add(batchResponse1);
-//        batchDtoList.add(batchResponseDto2);
-
 
         return batchDtoList;
 
     }
 
-    public static Set<BatchDto> validBatchResponseDto() {
+    public static Set<BatchDto> validBatchResponseDto2() {
 
         Set<BatchDto> batchDtoList = new HashSet<>();
 
@@ -103,11 +88,11 @@ public class GenerateBachStock {
                 .productId(1L)
                 .minimumTemperature(25F)
                 .currentTemperature(14F)
-                .initialQuantity(2)
-                .currentQuantity(2)
+                .initialQuantity(25)
+                .currentQuantity(25)
                 .manufacturingDate("2021-06-03")
                 .manufacturingTime("2021-06-03T14:24:54")
-                .dueDate("2021-07-24")
+                .dueDate("2021-07-27")
                 .build();
 
         BatchDto batchDto2 = BatchDto.builder()
@@ -127,6 +112,41 @@ public class GenerateBachStock {
         return batchDtoList;
 
     }
+
+    public static Set<BatchDto> validBatchResponseDto() {
+
+        Set<BatchDto> batchDtoList = new HashSet<>();
+
+        BatchDto batchDto1 = BatchDto.builder()
+                .productId(1L)
+                .minimumTemperature(25F)
+                .currentTemperature(14F)
+                .initialQuantity(2)
+                .currentQuantity(2)
+                .manufacturingDate("2021-06-03")
+                .manufacturingTime("2021-06-03T14:24:54")
+                .dueDate("2021-07-27")
+                .build();
+
+        BatchDto batchDto2 = BatchDto.builder()
+                .productId(1L)
+                .minimumTemperature(15F)
+                .currentTemperature(18F)
+                .initialQuantity(4)
+                .currentQuantity(5)
+                .manufacturingDate("2021-06-03")
+                .manufacturingTime("2021-06-03T14:24:54")
+                .dueDate("2021-05-12")
+                .build();
+
+        batchDtoList.add(batchDto1);
+        batchDtoList.add(batchDto2);
+
+        return batchDtoList;
+
+    }
+
+
     public static Set<Batch> validBatchResponse() {
         Set<Batch> batchSet = new HashSet<>();
         batchSet.add(Batch.builder()
@@ -155,6 +175,5 @@ public class GenerateBachStock {
 
         return batchSet;
     }
-
 
 }
