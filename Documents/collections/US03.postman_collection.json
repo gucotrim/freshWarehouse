@@ -1,0 +1,18 @@
+{
+	"info": {
+		"_postman_id": "582a0c50-ab78-4f55-b369-615251785159",
+		"name": "US03",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Product list with order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}

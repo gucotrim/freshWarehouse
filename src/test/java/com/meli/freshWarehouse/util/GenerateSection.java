@@ -3,7 +3,9 @@ package com.meli.freshWarehouse.util;
 import com.meli.freshWarehouse.dto.SectionDto;
 import com.meli.freshWarehouse.model.Section;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class GenerateSection {
@@ -79,6 +81,22 @@ public class GenerateSection {
         return sectionSet;
     }
 
+    public static final Section validFreshSection() {
+        return Section.builder()
+                .id(3L)
+                .name("Fresh")
+                .availableSpace(25)
+                .warehouse(GenerateWarehouse.validWarehouse2())
+                .build();
+    }
+
+    public static final Set<Section> validFreshSectionList() {
+        Set<Section> sectionSet = new HashSet<>();
+        sectionSet.add(GenerateSection.validFreshSection());
+
+        return sectionSet;
+    }
+
     public static final Set<Section> validSectionListToException() {
         Set<Section> sectionSet = new HashSet<>();
         sectionSet.add(Section.builder()
@@ -90,7 +108,5 @@ public class GenerateSection {
 
         return sectionSet;
     }
-
-
 
 }
