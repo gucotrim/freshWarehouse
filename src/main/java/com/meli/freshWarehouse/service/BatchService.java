@@ -38,9 +38,11 @@ public class BatchService implements IBatchService {
             Section sectionById = iSectionRepo.findById(sectionId).orElseThrow(() -> new SectionIdNotFoundException("Couldn't find any Section by this ID"));
             return dueDateRepo.getBySection(sectionById);
         }
-        return dueDateRepo.getBySectionAndDueDate(iSectionRepo.findById(sectionId).orElseThrow(() -> new SectionIdNotFoundException("Couldn't find any Section by this ID")),
-                                                    LocalDate.now(), LocalDate.now().plusDays(amountOfDays));
+        else {
+            return dueDateRepo.getBySectionAndDueDate(iSectionRepo.findById(sectionId).orElseThrow(() -> new SectionIdNotFoundException("Couldn't find any Section by this ID")),
+                    LocalDate.now(), LocalDate.now().plusDays(amountOfDays));
         }
+    }
 
     @Override
     public List<DueDateResponseDto> getBySectionAndDueDate(String sectionName, Integer amountOfDays) {
