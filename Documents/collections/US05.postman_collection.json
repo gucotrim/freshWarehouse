@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "b1408de6-a51c-416c-9b66-4f2f28a1a42c",
+		"name": "US05",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get expiring batches by category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/due-date/list?amountOfDays=10&sectionName=FS",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"due-date",
+						"list"
+					],
+					"query": [
+						{
+							"key": "amountOfDays",
+							"value": "10"
+						},
+						{
+							"key": "sectionName",
+							"value": "FS"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get expiring batches",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/due-date/?amountOfDays=8&sectionId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"due-date",
+						""
+					],
+					"query": [
+						{
+							"key": "amountOfDays",
+							"value": "8"
+						},
+						{
+							"key": "sectionId",
+							"value": "1"
+						},
+						{
+							"key": "",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
