@@ -14,6 +14,7 @@ import java.util.List;
  * Representative API Controller Class
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/fresh-products/representative")
 public class RepresentativeController {
 
