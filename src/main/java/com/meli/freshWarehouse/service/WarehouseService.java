@@ -24,8 +24,8 @@ public class WarehouseService implements IWarehouseService {
     }
 
     @Override
-    public Warehouse createWarehouse(WarehouseDTO createWarehouse) {
-        return warehouseRepo.save(createWarehouse.toModel());
+    public Warehouse createWarehouse(Warehouse createWarehouse) {
+        return warehouseRepo.save(createWarehouse);
     }
 
     @Override

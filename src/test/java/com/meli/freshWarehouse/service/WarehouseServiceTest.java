@@ -42,7 +42,7 @@ class WarehouseServiceTest {
 
         WarehouseDTO warehouseDTO = GenerateWarehouse.newWarehouseDto1();
 
-        Warehouse warehouseResponse = warehouseService.createWarehouse(warehouseDTO);
+        Warehouse warehouseResponse = warehouseService.createWarehouse(warehouseDTO.toModel());
 
         assertThat(warehouseResponse).isNotNull();
         assertThat(warehouseResponse.getId()).isPositive();
