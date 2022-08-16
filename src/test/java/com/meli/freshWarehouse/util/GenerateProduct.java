@@ -4,9 +4,7 @@ import com.meli.freshWarehouse.dto.ProductDTO;
 import com.meli.freshWarehouse.dto.ProductStockResponseDTO;
 import com.meli.freshWarehouse.dto.WarehouseForProductStockResponseDTO;
 import com.meli.freshWarehouse.model.Batch;
-import com.meli.freshWarehouse.model.Order;
 import com.meli.freshWarehouse.model.Product;
-import com.meli.freshWarehouse.model.Section;
 
 import java.util.*;
 import java.time.LocalDate;
@@ -227,6 +225,18 @@ public class GenerateProduct {
                 .sellerId(1L)
                 .build();
     }
+
+    public final static Product validFreshProduct(){
+
+        return Product.builder()
+                .id(3L)
+                .name("Milk")
+                .price(10.0)
+                .seller(GenerateSeller.validSeller2())
+                .sections(GenerateSection.validFreshSectionList())
+                .build();
+    }
+
 
     public final static ProductStockResponseDTO productStockResponseDTOAvailableInStock() {
         return ProductStockResponseDTO.builder()

@@ -131,5 +131,20 @@ public class GenerateSection {
         return sectionSet;
     }
 
+    public static final Section validFreshSection() {
+        return Section.builder()
+                .id(3L)
+                .name("Fresh")
+                .availableSpace(25)
+                .warehouse(GenerateWarehouse.validWarehouse2())
+                .build();
+    }
+
+    public static final Set<Section> validFreshSectionList() {
+        Set<Section> sectionSet = new HashSet<>();
+        sectionSet.add(GenerateSection.validFreshSection());
+
+        return sectionSet;
+    }
 
 }

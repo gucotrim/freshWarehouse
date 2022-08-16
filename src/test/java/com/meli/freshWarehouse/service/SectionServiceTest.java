@@ -1,8 +1,7 @@
 package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.SectionDto;
-import com.meli.freshWarehouse.exception.NotFoundException;
-import com.meli.freshWarehouse.exception.SectionNotFoundException;
+import com.meli.freshWarehouse.exception.SectionIdNotFoundException;
 import com.meli.freshWarehouse.model.Section;
 import com.meli.freshWarehouse.repository.ISectionRepo;
 import com.meli.freshWarehouse.util.GenerateSection;
@@ -98,8 +97,7 @@ class SectionServiceTest {
     void returnNotFoundException_When_IdIsInvalid() {
         String expectedMessage = "Section not found by id: " + 3L;
 
-        //Todo: alterar a section exception
-        Exception exception = assertThrows(NotFoundException.class,
+        Exception exception = assertThrows(SectionIdNotFoundException.class,
                 () -> sectionService.findById(3L).getId());
 
         assertThat(exception.getMessage()).isEqualTo(expectedMessage);
@@ -163,7 +161,7 @@ class SectionServiceTest {
 
         String expectedMessage = "Section not found by id: " + 3L;
 
-        Exception exception = assertThrows(SectionNotFoundException.class,
+        Exception exception = assertThrows(SectionIdNotFoundException.class,
                 () -> sectionService.deleteSectionById(3L));
 
         assertThat(exception.getMessage()).isEqualTo(expectedMessage);

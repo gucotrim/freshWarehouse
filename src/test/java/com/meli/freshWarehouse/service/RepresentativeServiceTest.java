@@ -2,10 +2,8 @@ package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.RepresentativeDTO;
 import com.meli.freshWarehouse.exception.RepresentativeNotFoundException;
-import com.meli.freshWarehouse.model.Order;
 import com.meli.freshWarehouse.model.Representative;
 import com.meli.freshWarehouse.repository.RepresentativeRepo;
-import com.meli.freshWarehouse.util.GenerateOrder;
 import com.meli.freshWarehouse.util.GenerateRepresentative;
 import com.meli.freshWarehouse.util.GenerateWarehouse;
 import org.junit.jupiter.api.BeforeEach;

@@ -3,11 +3,11 @@ package com.meli.freshWarehouse.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
+@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 
-public class SectionNotFoundException extends RuntimeException{
+public class InvalidSectionNameException extends IllegalArgumentException {
 
-    public SectionNotFoundException(String message) {
+    public InvalidSectionNameException(String message) {
         super(message);
     }
 
