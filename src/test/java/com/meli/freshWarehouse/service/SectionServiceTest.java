@@ -177,7 +177,7 @@ class SectionServiceTest {
 
         Section section = GenerateSection.validSection1();
 
-        boolean responseExists = iSectionRepo.existsById(section.getId());
+        boolean responseExists = sectionService.existById(section.getId());
         assertThat(responseExists).isEqualTo(expectedResult);
 
     }
