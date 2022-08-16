@@ -1,6 +1,8 @@
 package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.*;
+import com.meli.freshWarehouse.exception.EmptySectionListException;
+import com.meli.freshWarehouse.exception.InvalidSectionNameException;
 import com.meli.freshWarehouse.exception.ItsNotBelongException;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.model.Batch;
@@ -59,6 +61,58 @@ public class ProductService implements IProductService {
         return productRepository.findById(id).orElseThrow(() ->
                 new NotFoundException("Can't find product with the informed id"));
 
+    }
+
+    @Override
+    public List<ProductPurchaseDto> getProductByCategory(String category) {
+        List<ProductPurchaseDto> productPurchaseDtoList;
+        switch (category) {
+            case "FS":
+                productPurchaseDtoList = this.getAll().stream().filter(p -> {
+                    Optional<Section> section = p.getSections().stream().filter(s -> s.getName().equals("Fresh")).findFirst();
+                    if(section.isPresent()) {
+                        return true;
+                    }
+                    return false;
+                }).map(p -> ProductPurchaseDto.builder()
+                        .id(p.getId())
+                        .name(p.getName())
+                        .price(p.getPrice())
+                        .build()).collect(Collectors.toList());
+                break;
+            case "RF":
+                productPurchaseDtoList = this.getAll().stream().filter(p -> {
+                    Optional<Section> section = p.getSections().stream().filter(s -> s.getName().equals("Refrigerated")).findFirst();
+                    if(section.isPresent()) {
+                        return true;
+                    }
+                    return false;
+                }).map(p -> ProductPurchaseDto.builder()
+                        .id(p.getId())
+                        .name(p.getName())
+                        .price(p.getPrice())
+                        .build()).collect(Collectors.toList());
+                break;
+            case "FF":
+                productPurchaseDtoList = this.getAll().stream().filter(p -> {
+                    Optional<Section> section = p.getSections().stream().filter(s -> s.getName().equals("Frozen")).findFirst();
+                    if(section.isPresent()) {
+                        return true;
+                    }
+                    return false;
+                }).map(p -> ProductPurchaseDto.builder()
+                        .id(p.getId())
+                        .name(p.getName())
+                        .price(p.getPrice())
+                        .build()).collect(Collectors.toList());
+                break;
+            default:
+                throw new InvalidSectionNameException("Please, enter one of the options: FS, RF or FF");
+        }
+        if(productPurchaseDtoList.isEmpty()) {
+            throw new EmptySectionListException("Products for this category not found!");
+        }
+        return productPurchaseDtoList;
     }
 
     @Override
