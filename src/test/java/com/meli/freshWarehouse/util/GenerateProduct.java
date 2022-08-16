@@ -6,11 +6,9 @@ import com.meli.freshWarehouse.dto.WarehouseForProductStockResponseDTO;
 import com.meli.freshWarehouse.model.Batch;
 import com.meli.freshWarehouse.model.Product;
 
-import java.util.Arrays;
+import java.util.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 public class GenerateProduct {
 
@@ -38,9 +36,11 @@ public class GenerateProduct {
                 .build();
     }
 
-    public final static Product newProduct2() {
+
+    public final static Product newProduct() {
 
         return Product.builder()
+                .id(1L)
                 .name("Milk")
                 .price(8.0)
                 .seller(GenerateSeller.validSeller2())
@@ -53,6 +53,18 @@ public class GenerateProduct {
         return Product.builder()
                 .id(1L)
                 .name("Toddy")
+                .price(10.0)
+                .seller(GenerateSeller.validSeller1())
+                .sections(GenerateSection.validSectionList())
+                .build();
+    }
+
+
+    public final static Product responseProduct(){
+
+        return Product.builder()
+                .id(1L)
+                .name("New Product")
                 .price(10.0)
                 .seller(GenerateSeller.validSeller1())
                 .sections(GenerateSection.validSectionList())
@@ -194,10 +206,23 @@ public class GenerateProduct {
 
         return Product.builder()
                 .id(2L)
-                .name("Milk")
+                .name("Leite")
                 .price(8.0)
                 .seller(GenerateSeller.validSeller2())
                 .sections(GenerateSection.validSectionList())
+                .build();
+    }
+
+    public final static ProductDTO validProductDto()
+    {
+        Set<Long> longSet = new HashSet<>();
+        longSet.add(1l);
+
+        return ProductDTO.builder()
+                .name("Milk")
+                .price(8.0)
+                .sectionsId(longSet)
+                .sellerId(1L)
                 .build();
     }
 
@@ -243,5 +268,27 @@ public class GenerateProduct {
                                 .build()
                 ))
                 .build();
+    }
+
+    public static final List<Product> validProductList() {
+
+        List<Product> productList = new ArrayList<>();
+        productList.add(Product.builder()
+                .id(1L)
+                .name("Toddy")
+                .price(10.0)
+                .seller(GenerateSeller.validSeller1())
+                .sections(GenerateSection.validSectionList())
+                .build());
+
+        productList.add(Product.builder()
+                .id(2L)
+                .name("Leite")
+                .price(15.0)
+                .seller(GenerateSeller.validSeller1())
+                .sections(GenerateSection.validSectionList())
+                .build());
+
+        return productList;
     }
 }

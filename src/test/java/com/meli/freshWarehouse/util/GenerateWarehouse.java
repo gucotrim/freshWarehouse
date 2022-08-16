@@ -20,12 +20,11 @@ public class GenerateWarehouse {
     }
 
     public static final WarehouseDTO newWarehouseDto1() {
-        WarehouseDTO warehouse = new WarehouseDTO();
-        warehouse.toModel().setAddress("Rua um test");
-        warehouse.toModel().setCity("São Paulo");
-        warehouse.toModel().setState("São Paulo");
-        warehouse.toModel().setCountry("Brasil");
-        warehouse.toModel().setNumber(23);
+        WarehouseDTO warehouse = new WarehouseDTO("Rua um test",
+                "São Paulo",
+                "São Paulo",
+                "Brasil",
+                23);
 
         return warehouse;
 

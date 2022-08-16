@@ -80,7 +80,7 @@ public class InboundOrderService implements IInboundOrderService {
                                 .manufacturingTime(b.getManufacturingTime())
                                 .dueDate(b.getDueDate())
                                 .build()
-                        ).collect(Collectors.toList()))
+                ).collect(Collectors.toList()))
                 .build();
     }
 
@@ -112,12 +112,13 @@ public class InboundOrderService implements IInboundOrderService {
     }
 
     private Product validateProduct(Product product, Section section) {
-        //verificar mudanca
-        if (product.getSections().contains(section)) {
-            return product;
-        } else {
-            throw new ItsNotBelongException("Product doesn't belong to the section");
-        }
+
+        product.getSections().stream().filter((p) ->
+                p.getId().equals(section.getId())
+        ).findFirst().orElseThrow(() -> new ItsNotBelongException("Product doesn't belong to the section"));
+
+        return product;
+
     }
 
     private Integer validateAvailableSpace(Section section, InboundOrderDto inboundOrderDto) {

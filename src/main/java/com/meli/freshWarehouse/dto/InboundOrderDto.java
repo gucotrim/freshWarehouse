@@ -1,7 +1,6 @@
 package com.meli.freshWarehouse.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -10,8 +9,11 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.util.Set;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class InboundOrderDto {
 
         @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "The valid Date is: 'yyyy-MM-dd'")

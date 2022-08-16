@@ -7,7 +7,7 @@ import com.meli.freshWarehouse.model.Warehouse;
 import java.util.List;
 
 public interface IWarehouseService {
-    Warehouse createWarehouse(WarehouseDTO createWarehouse);
+    Warehouse createWarehouse(Warehouse createWarehouse);
     List<Warehouse> listAll();
     Warehouse getWarehouseById(Long warehouseId);
     Warehouse updateWarehouse (Warehouse updateWarehouse);

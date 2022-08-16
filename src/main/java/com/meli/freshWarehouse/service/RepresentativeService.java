@@ -1,7 +1,7 @@
 package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.RepresentativeDTO;
-import com.meli.freshWarehouse.exception.NotFoundException;
+import com.meli.freshWarehouse.exception.RepresentativeNotFoundException;
 import com.meli.freshWarehouse.model.Representative;
 import com.meli.freshWarehouse.model.Warehouse;
 import com.meli.freshWarehouse.repository.RepresentativeRepo;
@@ -48,12 +48,13 @@ public class RepresentativeService implements IRepresentativeService {
 
     @Override
     public void delete(Long id) {
-        representativeRepository.delete(this.findById(id));
+        representativeRepository.deleteById(this.findById(id).getId());
     }
 
     @Override
     public Representative findById(Long id) {
-        return representativeRepository.findById(id).orElseThrow(() -> new NotFoundException("No representative was found with this id"));
+        return representativeRepository.findById(id).orElseThrow(()
+                -> new RepresentativeNotFoundException("No representative was found with this id: " + id));
     }
 
     @Override

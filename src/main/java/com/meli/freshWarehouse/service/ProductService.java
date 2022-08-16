@@ -36,13 +36,16 @@ public class ProductService implements IProductService {
     public Product createProduct(ProductDTO productDto) {
         Set<Section> sections = sectionService.findAllById(productDto.getSectionsId());
         Seller seller = sellerService.getSellerById(productDto.getSellerId());
+
         Product product = Product.builder()
                 .name(productDto.getName())
                 .sections(sections)
                 .seller(seller)
                 .price(productDto.getPrice())
                 .build();
-        sections.forEach(s -> {s.getProducts().add(product);});
+        sections.forEach(s -> {
+            s.getProducts().add(product);
+        });
         return productRepository.save(product);
     }
 
@@ -53,7 +56,8 @@ public class ProductService implements IProductService {
 
     @Override
     public Product getProductById(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new NotFoundException("Can't find product with the informed id"));
+        return productRepository.findById(id).orElseThrow(() ->
+                new NotFoundException("Can't find product with the informed id"));
 
     }
 
@@ -62,7 +66,9 @@ public class ProductService implements IProductService {
     public Product update(Long id, ProductDTO productDto) {
         Product product = this.getProductById(id);
         Set<Section> sections = sectionService.findAllById(productDto.getSectionsId());
-        sections.forEach(s -> {s.getProducts().add(product);});
+        sections.forEach(s -> {
+            s.getProducts().add(product);
+        });
         Seller seller = sellerService.getSellerById(productDto.getSellerId());
 
         product.setName(productDto.getName());
@@ -117,7 +123,7 @@ public class ProductService implements IProductService {
     @Override
     public boolean isFromSection(Long sectionId, Product product) {
         for (Section section : product.getSections()) {
-            if(section.getId().equals(sectionId)) {
+            if (section.getId().equals(sectionId)) {
                 return true;
             }
         }

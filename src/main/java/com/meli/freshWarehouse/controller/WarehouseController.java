@@ -31,7 +31,7 @@ public class WarehouseController {
      */
     @PostMapping
     public ResponseEntity<Warehouse> saveWarehouse(@RequestBody @Valid WarehouseDTO warehouseDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(warehouseService.createWarehouse(warehouseDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(warehouseService.createWarehouse(warehouseDTO.toModel()));
     }
     /**
      * Get all warehouses saved
