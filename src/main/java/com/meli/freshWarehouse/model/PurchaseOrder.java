@@ -1,9 +1,7 @@
 package com.meli.freshWarehouse.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,6 +11,8 @@ import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.util.Set;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @Builder
@@ -33,7 +33,13 @@ public class PurchaseOrder {
     @Column(name = "order_status")
     private String orderStatus;
 
-    @OneToMany(mappedBy = "purchaseOrder")
-    @JsonIgnore
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "purchaseOrder"
+    )
     private Set<ShoppingCartProduct> shoppingCartProducts;
 }

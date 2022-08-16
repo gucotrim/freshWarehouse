@@ -1,13 +1,14 @@
 package com.meli.freshWarehouse.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Builder
@@ -28,6 +29,7 @@ public class ShoppingCartProduct {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "id_purchase_order", nullable = false)
+    @JoinColumn(name = "id_purchase_order")
+    @JsonIgnore
     private PurchaseOrder purchaseOrder;
 }

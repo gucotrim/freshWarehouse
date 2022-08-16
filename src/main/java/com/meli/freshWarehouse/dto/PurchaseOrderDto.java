@@ -22,5 +22,5 @@ public class PurchaseOrderDto {
 
     private Long buyerId;
 
-    private Set<ShoppingCartProduct> shoppingCartProducts;
+    private Set<ShoppingCartProductDto> shoppingCartProducts;
 }
