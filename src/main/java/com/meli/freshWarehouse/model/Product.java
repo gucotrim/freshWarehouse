@@ -50,6 +50,10 @@ public class Product {
     @JsonIgnore
     private Set<Batch> listBatch;
 
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private Set<ShoppingCartProduct> shoppingCartProducts;
+
     public Product(String name, Double price, Long sellerId, Set<Long> sections) {
     }
 }

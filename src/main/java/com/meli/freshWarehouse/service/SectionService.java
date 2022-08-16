@@ -1,6 +1,7 @@
 package com.meli.freshWarehouse.service;
 
 import com.meli.freshWarehouse.dto.SectionDto;
+import com.meli.freshWarehouse.exception.EmptySectionListException;
 import com.meli.freshWarehouse.exception.SectionIdNotFoundException;
 import com.meli.freshWarehouse.exception.NotFoundException;
 import com.meli.freshWarehouse.model.Section;
