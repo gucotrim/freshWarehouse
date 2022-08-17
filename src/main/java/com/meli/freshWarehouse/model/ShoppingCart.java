@@ -17,14 +17,11 @@ import java.util.Set;
 @Getter
 @Builder
 @Entity
-public class PurchaseOrder {
+public class ShoppingCart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "id_buyer", nullable = false)
@@ -39,7 +36,7 @@ public class PurchaseOrder {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             },
-            mappedBy = "purchaseOrder"
+            mappedBy = "shoppingCart"
     )
     private Set<ShoppingCartProduct> shoppingCartProducts;
 }

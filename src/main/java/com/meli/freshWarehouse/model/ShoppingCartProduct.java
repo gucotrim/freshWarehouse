@@ -29,7 +29,7 @@ public class ShoppingCartProduct {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "id_purchase_order")
+    @JoinColumn(name = "id_shopping_cart")
     @JsonIgnore
-    private PurchaseOrder purchaseOrder;
+    private ShoppingCart shoppingCart;
 }
