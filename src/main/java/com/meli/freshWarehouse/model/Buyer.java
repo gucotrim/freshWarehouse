@@ -33,7 +33,7 @@ public class Buyer {
     @JsonIgnore
     private Set<ShoppingCart> shoppingCarts;
 
-//    @OneToMany(mappedBy = "buyer")
-//    @JsonIgnore
-//    private Set<PurchaseOrder> purchaseOrders;
+    @OneToMany(mappedBy = "buyer")
+    @JsonIgnore
+    private Set<PurchaseOrder> purchaseOrders;
 }

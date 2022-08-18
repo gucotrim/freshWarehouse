@@ -24,8 +24,7 @@ public class ShoppingCartProduct {
     @JoinColumn(name = "id_product", nullable = false)
     private Product product;
 
-    @Positive
-    @NotNull
+    @Column(name = "quantity")
     private Integer quantity;
 
     @ManyToOne

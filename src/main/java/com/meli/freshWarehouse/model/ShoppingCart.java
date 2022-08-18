@@ -27,8 +27,12 @@ public class ShoppingCart {
     @JoinColumn(name = "id_buyer", nullable = false)
     private Buyer buyer;
 
-    @Column(name = "order_status")
-    private String orderStatus;
+    @OneToOne(mappedBy = "shoppingCart")
+    @JsonIgnore
+    private PurchaseOrder purchaseOrder;
+
+    @Column(name = "status")
+    private String status;
 
     @OneToMany(
             fetch = FetchType.LAZY,

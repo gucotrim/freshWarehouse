@@ -8,6 +8,8 @@ import javax.validation.constraints.Positive;
 
 @Getter @Setter
 public class ShoppingCartProductDto {
+    @Positive
+    @NotNull
     private Long productId;
 
     @Positive
