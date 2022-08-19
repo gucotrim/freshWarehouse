@@ -1,0 +1,46 @@
+package com.meli.freshWarehouse.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+import java.time.LocalDate;
+import java.util.Set;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+@Builder
+@Entity
+public class ShoppingCart {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "id_buyer", nullable = false)
+    private Buyer buyer;
+
+    @OneToOne(mappedBy = "shoppingCart")
+    @JsonIgnore
+    private PurchaseOrder purchaseOrder;
+
+    @Column(name = "status")
+    private String status;
+
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "shoppingCart"
+    )
+    private Set<ShoppingCartProduct> shoppingCartProducts;
+}

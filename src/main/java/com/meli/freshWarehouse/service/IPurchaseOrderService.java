@@ -1,11 +1,15 @@
 package com.meli.freshWarehouse.service;
 
-import com.meli.freshWarehouse.dto.PurchaseOrderDto;
-import com.meli.freshWarehouse.dto.PurchaseOrderTotalPriceDTO;
+import com.meli.freshWarehouse.dto.ShoppingCartDTO;
+import com.meli.freshWarehouse.model.Buyer;
 import com.meli.freshWarehouse.model.PurchaseOrder;
+import com.meli.freshWarehouse.model.ShoppingCart;
+
+import java.util.List;
 
 public interface IPurchaseOrderService {
-    PurchaseOrderTotalPriceDTO save(PurchaseOrderDto purchaseOrderDto);
-    PurchaseOrder getById(Long purchaseOrderId);
-    PurchaseOrderTotalPriceDTO finalizePurchaseOrder(Long purchaseOrderId);
+    PurchaseOrder save(ShoppingCart shoppingCart);
+    PurchaseOrder getPurchaseOrderById(Long purchaseOrderId);
+    List<PurchaseOrder> findAllByBuyerId(Long buyerId);
+    PurchaseOrder updateStatusOrder(Long purchaseOrderId, String statusOrder);
 }

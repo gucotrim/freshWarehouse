@@ -1,22 +1,17 @@
 package com.meli.freshWarehouse.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
 import java.time.LocalDate;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
+@Setter
 @Builder
 @Entity
+@Table(name = "purchase_order")
 public class PurchaseOrder {
 
     @Id
@@ -26,20 +21,17 @@ public class PurchaseOrder {
     @Column
     private LocalDate date;
 
-    @ManyToOne
-    @JoinColumn(name = "id_buyer", nullable = false)
-    private Buyer buyer;
-
     @Column(name = "order_status")
     private String orderStatus;
 
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "purchaseOrder"
-    )
-    private Set<ShoppingCartProduct> shoppingCartProducts;
+    @OneToOne
+    @JoinColumn(name = "id_shopping_cart", referencedColumnName = "id")
+    private ShoppingCart shoppingCart;
+
+    @Column(name = "total_price")
+    private Double totalPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "id_buyer", nullable = false)
+    private Buyer buyer;
 }

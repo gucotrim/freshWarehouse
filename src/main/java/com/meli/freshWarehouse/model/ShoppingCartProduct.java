@@ -24,12 +24,11 @@ public class ShoppingCartProduct {
     @JoinColumn(name = "id_product", nullable = false)
     private Product product;
 
-    @Positive
-    @NotNull
+    @Column(name = "quantity")
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "id_purchase_order")
+    @JoinColumn(name = "id_shopping_cart")
     @JsonIgnore
-    private PurchaseOrder purchaseOrder;
+    private ShoppingCart shoppingCart;
 }

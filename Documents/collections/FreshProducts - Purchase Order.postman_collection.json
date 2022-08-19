@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "604d74f0-6cf4-46dc-9e7b-091fd8207b6d",
+		"name": "FreshProducts - Purchase Order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "updateStatusOrder",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/purchase-order/1?order-status=Entregue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"purchase-order",
+						"1"
+					],
+					"query": [
+						{
+							"key": "order-status",
+							"value": "Entregue"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllByBuyerId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/purchase-order/all-buyer-purchase-orders/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"purchase-order",
+						"all-buyer-purchase-orders",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPurchaseOrderById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/purchase-order/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"purchase-order",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

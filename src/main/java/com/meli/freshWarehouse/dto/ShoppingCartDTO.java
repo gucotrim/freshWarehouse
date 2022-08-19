@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class PurchaseOrderTotalPriceDTO {
+public class ShoppingCartDTO {
     private Long id;
     private Double totalPrice;
 }
