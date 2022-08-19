@@ -195,7 +195,7 @@ public class ShoppingCartService implements IShoppingCartService {
 
         shoppingCart.getShoppingCartProducts().forEach((s) -> {
             if(s.getProduct().getId().equals(shoppingCartProductDto.getProductId())) {
-                s.setQuantity(shoppingCartProduct.getQuantity() + shoppingCartProductDto.getQuantity());
+                s.setQuantity(shoppingCartProduct.getQuantity());
             }
         });
 
